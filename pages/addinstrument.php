@@ -22,7 +22,7 @@
             <br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=adminmain">Main</a></li>
-                <li><a href="index.php?page=addproduct">Add Products</a></li>
+                <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
                 <li><a href="index.php?page=opportunity">Add Opportunities</a></li>
             </ul>
             <h2>WMC Add Products</h2>
@@ -74,10 +74,10 @@
                 else
                     $errors[] = "Enter Stock Exchange!";
 
-                    if (!empty($_POST['currency']))
+                if (!empty($_POST['currency']))
                     $currency = $_POST['currency'];
                 else
-                    $errors[] = "Enter Curreny!";
+                    $errors[] = "Select Curreny!";
 
                 if (!empty($_POST['denomination']))
                     $denomination = $_POST['denomination'];
@@ -112,13 +112,15 @@
                 if (!empty($_POST['riskrating']))
                     $riskrating = $_POST['riskrating'];
                 else
-                    $errors[] = "Enter Risk Rating!";
+                    $errors[] = "Select Risk Rating!";
+
+                $adminid = GetAdminID($username);
 
                 if (!empty($errors)) {
                     foreach ($errors as $error)
                         echo $error . "<br>";
                 } else {
-                    $response = InsertProduct(
+                    $response = InsertInstrument(
                         $shortname,
                         $instrumentname,
                         $assettype,
@@ -135,7 +137,8 @@
                         $issuedate,
                         $maturitydate,
                         $coupon,
-                        $riskrating
+                        $riskrating,
+                        $adminid
                     );
                     if ($response)
                         header('location:index.php?page=adminmain');
@@ -198,8 +201,10 @@
                     </tr>
                     <tr>
                         <th class="p3"><label for="currency">Curreny</label></th>
-                        <td class="p4"><input type="text" name="currency" id="currency"
-                                value="<?php echo isset($currency) ? $currency : ''; ?>"></td>
+                        <td><select id="currency" name="currency">
+                                <option value="">Select Curreny...</option>
+                                <?php echo $currencyoptions = GetCurrenyOptions(); ?>
+                            </select></td>
                     </tr>
                     <tr>
                         <th class="p3"><label for="denomination">Denomination</label></th>
@@ -233,9 +238,12 @@
                     </tr>
                     <tr>
                         <th class="p3"><label for="riskrating">Risk Rating</label></th>
-                        <td class="p4"><input type="text" name="riskrating" id="riskrating"
-                                value="<?php echo isset($riskrating) ? $riskrating : ''; ?>"></td>
+                        <td><select id="riskrating" name="riskrating">
+                                <option value="">Select Risk Level...</option>
+                                <?php echo $riskoptions = GetRiskOptions(); ?>
+                            </select></td>
                     </tr>
+
                     <tr>
                         <th class="p3"></th>
                         <td class="p4"><input type="submit" value="Add Product" name="addproduct" id="addproduct"></td>

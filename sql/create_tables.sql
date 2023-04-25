@@ -138,3 +138,18 @@ CREATE TABLE preferenceopportunities (
 ALTER TABLE `preferenceopportunities`
   ADD PRIMARY KEY (`prefid`,`oppid`),
   ADD KEY `oppid` (`oppid`);
+
+CREATE TABLE IF currencies (
+  ccycode varchar(3) NOT NULL,
+  ccyname varchar(50) NOT NULL,
+  PRIMARY KEY (ccycode)
+);
+
+
+CREATE TABLE risklevels (
+  risklvlid INT NOT NULL AUTO_INCREMENT,
+riskdesc VARCHAR(255) NOT NULL,
+riskdefinition TEXT NOT NULL,
+PRIMARY KEY (risklvlid)
+);
+

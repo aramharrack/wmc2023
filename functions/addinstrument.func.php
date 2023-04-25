@@ -1,5 +1,27 @@
 <?php
-function InsertProduct($shortname,
+function GetAdminID($username)
+{
+    include "db_connect.php";
+
+    $sql = "select id
+            from admins
+            where username = :username";
+
+    //prepare the query
+    $query = $db->prepare($sql);
+
+    $query->execute(array(':username' => $username));
+
+    if (!$query)
+        echo "Something went wrong. " . print_r($db->errorInfo());
+    else {
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        $adminid = $row['id'];
+    }
+    return $adminid;
+}
+
+function InsertInstrument($shortname,
                         $instrumentname,
                         $assetid,
                         $parmcode,
@@ -15,7 +37,8 @@ function InsertProduct($shortname,
                         $issuedate,
                         $maturitydate,
                         $coupon,
-                        $riskrating)
+                        $riskrating,
+                        $staffid)
 {
     include "db_connect.php";
 
@@ -23,7 +46,7 @@ function InsertProduct($shortname,
             values(:instrumentid, :shortname, :instrumentname, :assetid, :parmcode, 
                      :countrycode, :ticker, :isin, :issuer, :stockexchange, :currency,
                      :denomination, :closingprice, :priceclosingdate, :issuedate,
-                     :maturitydate, :coupon, :riskrating)";
+                     :maturitydate, :coupon, :riskrating, :staffid)";
     //prepare the query
     $query = $db->prepare($sql);
     //execute the query
@@ -48,7 +71,8 @@ function InsertProduct($shortname,
                 ':issuedate'=>$issuedate,
                 ':maturitydate'=>$maturitydate,
                 ':coupon'=>$coupon,
-                ':riskrating'=>$riskrating
+                ':riskrating'=>$riskrating,
+                ':staffid'=>$staffid
             )
         );
         if (!$query)
@@ -94,6 +118,32 @@ function GetCountryOptions()
     $options = '';
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         $options .= '<option value="' . $row['countrycode'] . '">' . $row['countrycode']." - ".$row['countryname'] . '</option>';
+    }
+    return $options;
+}
+
+function GetCurrenyOptions()
+{
+    include "db_connect.php";
+    $sql = "select ccycode, ccyname from currencies order by ccyname asc";
+    $query = $db->prepare($sql);
+    $query->execute();
+    $options = '';
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        $options .= '<option value="' . $row['ccycode'] . '">' . $row['ccycode']." - ".$row['ccyname'] . '</option>';
+    }
+    return $options;
+}
+
+function GetRiskOptions()
+{
+    include "db_connect.php";
+    $sql = "select risklvlid, riskdesc from risklevels order by risklvlid asc";
+    $query = $db->prepare($sql);
+    $query->execute();
+    $options = '';
+    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+        $options .= '<option value="' . $row['risklvlid'] . '">' . $row['risklvlid']." - ".$row['riskdesc'] . '</option>';
     }
     return $options;
 }
