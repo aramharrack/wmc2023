@@ -19,6 +19,12 @@
                 ?>
                 <a href="index.php?page=logout">Logout</a>
             </div>
+            <br>
+            <ul class="breadcrumb">
+                <li><a href="index.php?page=clientmain">Main</a></li>
+                <li><a href="index.php?page=addpreference">Add Preference</a></li>
+                <li><a href="index.php?page=opportunity">View Opportunity</a></li>
+            </ul>
             <h2>WMC Edit Preferences</h2>
             <?php
             if (!empty($_GET['prefid'])) {
@@ -76,7 +82,7 @@
             foreach ($infos as $info) {
                 ?>
                 <form method="post" action="">
-                    <table class="preference">
+                    <table id="preference">
                         <tr>
                             <th class="p3"><label for="datesubmitted"> Date Submitted </label></th>
                             <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"

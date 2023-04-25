@@ -1,26 +1,54 @@
 <?php
-function InsertPreference($datesubmitted, $prefdetails, $clientid, $assetid, $parmcode, $countrycode, $regionid)
+function InsertProduct($shortname,
+                        $instrumentname,
+                        $assetid,
+                        $parmcode,
+                        $countrycode,
+                        $ticker,
+                        $isin,
+                        $issuer,
+                        $stockexchange,
+                        $currency,
+                        $denomination,
+                        $closingprice,
+                        $priceclosingdate,
+                        $issuedate,
+                        $maturitydate,
+                        $coupon,
+                        $riskrating)
 {
     include "db_connect.php";
 
-    $sql = "insert into preferences
-            values(:prefid, :datesubmitted, :prefdetails, :clientid, 
-                    :assetid, :parmcode,:countrycode, :regionid)";
+    $sql = "insert into instruments
+            values(:instrumentid, :shortname, :instrumentname, :assetid, :parmcode, 
+                     :countrycode, :ticker, :isin, :issuer, :stockexchange, :currency,
+                     :denomination, :closingprice, :priceclosingdate, :issuedate,
+                     :maturitydate, :coupon, :riskrating)";
     //prepare the query
     $query = $db->prepare($sql);
     //execute the query
     if ($query) {
-        $prefid = null;
+        $instrumentid = null;
         $query->execute(
             array(
-                ':prefid' => $prefid,
-                ':datesubmitted' => $datesubmitted,
-                ':prefdetails' => $prefdetails,
-                ':clientid' => $clientid,
+                ':instrumentid' => $instrumentid,
+                ':shortname' => $shortname,
+                ':instrumentname' => $instrumentname,
                 ':assetid' => $assetid,
                 ':parmcode' => $parmcode,
                 ':countrycode' => $countrycode,
-                ':regionid' => $regionid
+                ':ticker' => $ticker,
+                ':isin' => $isin,
+                ':issuer' => $issuer,
+                ':stockexchange' => $stockexchange,
+                ':currency'=>$currency,
+                ':denomination'=>$denomination,
+                ':closingprice'=>$closingprice,
+                ':priceclosingdate'=>$priceclosingdate,
+                ':issuedate'=>$issuedate,
+                ':maturitydate'=>$maturitydate,
+                ':coupon'=>$coupon,
+                ':riskrating'=>$riskrating
             )
         );
         if (!$query)
@@ -29,28 +57,6 @@ function InsertPreference($datesubmitted, $prefdetails, $clientid, $assetid, $pa
             return $query;
     } else
         echo "Something went wrong." . print_r($db->errorInfo());
-}
-
-function getClientID($username)
-{
-    include "db_connect.php";
-
-    $sql = "select id
-            from clients
-            where username = :username";
-
-    //prepare the query
-    $query = $db->prepare($sql);
-
-    $query->execute(array(':username' => $username));
-
-    if (!$query)
-        echo "Something went wrong. " . print_r($db->errorInfo());
-    else {
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        $clientid = $row['id'];
-    }
-    return $clientid;
 }
 
 function GetAssetOptions()
@@ -88,19 +94,6 @@ function GetCountryOptions()
     $options = '';
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         $options .= '<option value="' . $row['countrycode'] . '">' . $row['countrycode']." - ".$row['countryname'] . '</option>';
-    }
-    return $options;
-}
-
-function GetRegionOptions()
-{
-    include "db_connect.php";
-    $sql = "select regionid, regionname from regions";
-    $query = $db->prepare($sql);
-    $query->execute();
-    $options = '';
-    while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        $options .= '<option value="' . $row['regionid'] . '">' . $row['regionname'] . '</option>';
     }
     return $options;
 }

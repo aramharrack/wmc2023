@@ -83,24 +83,25 @@ function GetPreference($prefid)
 function GetAssetOptions()
 {
     include "db_connect.php";
-    $sql = "select assetid, assetdesc from assettypes";
+    $sql = "select assetid, assetdesc from assettypes order by assetid asc";
     $query = $db->prepare($sql);
     $query->execute();
     $options = '';
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        $options .= '<option value="' . $row['assetid'] . '">' . $row['assetdesc'] . '</option>';
+        $options .= '<option value="' . $row['assetid'] . '">' . $row['assetid']." - ".$row['assetdesc'] . '</option>';
     }
     return $options;
 }
+
 function GetIndustryOptions()
 {
     include "db_connect.php";
-    $sql = "select parmcode, sectordesc from industrysectors";
+    $sql = "select parmcode, sectordesc from industrysectors order by parmcode asc";
     $query = $db->prepare($sql);
     $query->execute();
     $options = '';
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        $options .= '<option value="' . $row['parmcode'] . '">' . $row['sectordesc'] . '</option>';
+        $options .= '<option value="' . $row['parmcode'] . '">' . $row['parmcode']." - ".$row['sectordesc'] . '</option>';
     }
     return $options;
 }
@@ -108,12 +109,12 @@ function GetIndustryOptions()
 function GetCountryOptions()
 {
     include "db_connect.php";
-    $sql = "select countrycode, countryname from countries";
+    $sql = "select countrycode, countryname from countries order by countryname asc";
     $query = $db->prepare($sql);
     $query->execute();
     $options = '';
     while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
-        $options .= '<option value="' . $row['countrycode'] . '">' . $row['countryname'] . '</option>';
+        $options .= '<option value="' . $row['countrycode'] . '">' . $row['countrycode']." - ".$row['countryname'] . '</option>';
     }
     return $options;
 }
