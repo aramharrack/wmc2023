@@ -5,8 +5,9 @@ function GetInstruments()
 
     $instrumentinfos = array();
     
-    $sql = "select *
-            from instruments";
+    $sql = "select instruments.*, admins.fullname
+            from instruments, admins
+            where instruments.staffid = admins.id";
     
     $query = $db->prepare($sql);
     $query->execute();

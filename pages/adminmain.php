@@ -22,8 +22,9 @@
             <br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=adminmain">Main</a></li>
+                <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
-                <li><a href="index.php?page=opportunity">Add Opportunities</a></li>
+                <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
             </ul>
             <h2>WMC Administrator</h2>
             <h3>Main Menu</h3>
@@ -33,30 +34,22 @@
             ?>
             <table id="preference">
                 <tr>
-                    <th align="left" class="pinstr">Instrument ID</th>
                     <th align="left" class="pinstr">Instrument Name</th>
-                    <th align="left" class="pinstr">ticker</th>
-                    <th align="left" class="pinstr">issuer</th>
-                    <th align="left" class="pinstr">stock exchange</th>
-                    <th align="left" class="pinstr">currency</th>
-                    <th align="left" class="pinstr">denomination</th>
-                    <th align="left" class="pinstr">closing price</th>
-                    <th align="left" class="pinstr">price closing date</th>
-                    <th align="left" class="pinstr">risk rating</th>
-                    <th align="left" class="pinstr">Admin ID</th>
+                    <th align="left" class="pinstr">Issuer</th>
+                    <th align="left" class="pinstr">Stock Exchange</th>
+                    <th align="left" class="pinstr">Currency</th>
+                    <th align="left" class="pinstr">Denomination</th>
+                    <th align="left" class="pinstr">Closing Price</th>
+                    <th align="left" class="pinstr">Price Closing Date</th>
+                    <th align="left" class="pinstr">Risk Rating</th>
+                    <th align="left" class="pinstr">Admin</th>
                 </tr>
                 <?php
                 foreach ($infos as $info) {
                     ?>
                     <tr>
                         <td class="pinstr">
-                            <?php echo $info['instrumentid']; ?>
-                        </td>
-                        <td class="pinstr">
                             <?php echo $info['shortname']; ?>
-                        </td>
-                        <td class="pinstr">
-                            <?php echo $info['ticker']; ?>
                         </td>
                         <td class="pinstr">
                             <?php echo $info['issuer']; ?>
@@ -80,10 +73,8 @@
                             <?php echo $info['riskrating']; ?>
                         </td>
                         <td class="pinstr">
-                            <?php echo $info['staffid']; ?>
+                            <?php echo $info['fullname']; ?>
                         </td>
-                        <!--<td class="p1"><a href="index.php?page=editpreference&prefid=<?php //echo $info['prefid'];?>">Edit</a> |
-                    <a href="index.php?page=deletepreference&prefid=<?php //echo $info['prefid'];?>">Delete</a></td>-->
                     </tr>
                     <?php
                 }

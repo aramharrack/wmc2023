@@ -1,4 +1,33 @@
 <?php
+function GetUserInfo($username)
+{
+    include "db_connect.php";
+
+    $clientinfos = array();
+
+    $sql = "select * 
+            from clients
+            where username = :username
+            union all
+            select *
+            from managers
+            where username = :username
+            union all
+            select *
+            from admins
+            where username = :username";
+
+    $query = $db->prepare($sql);
+    $query->execute(array(':username' => $username));
+
+    if (!$query)
+        echo "Something went wrong. " . print_r($db->errorInfo());
+    else {
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        $clientinfos[] = $row;
+    }
+    return $clientinfos;
+}
 function CheckUsernameExists($username)
 {
     include "db_connect.php";
@@ -32,40 +61,42 @@ function CheckPassword($password, $confirmPassword)
     return $errors;
 }
 
-function InsertRegistration($fullname, $emailaddress, $username, $password, $classicalusertype)
+function UpdateUser($id, $fullname, $emailaddress, $username, $password, $classicalusertype)
 {
     include "db_connect.php";
 
-    if ($classicalusertype == "managers") {
+    if ($classicalusertype == "Relationship Manager") {
         $usertable = "managers";
-        $classicalusertype = "Relationship Manager";
-    } else if ($classicalusertype == "clients") {
+    } else if ($classicalusertype == "Client") {
         $usertable = "clients";
-        $classicalusertype = "Client";
-    } else if ($classicalusertype == "admins") {
+    } else if ($classicalusertype == "Administrator") {
         $usertable = "admins";
-        $classicalusertype = "Administrator";
-    }
+    }else
+    echo "Unrecognised user type found!";
 
-    $sql = "insert into $usertable
-            values(:id, :fullname, :emailaddress, :username, :password, :classicalusertype)";
+    $sql = "update $usertable
+            set fullname = :fullname,
+                emailaddress = :emailaddress,
+                username = :username,
+                password = :password,
+                classicalusertype = :classicalusertype
+            where id = :id";
     //prepare the query
     $query = $db->prepare($sql);
     //execute the query
     if ($query) {
         $hash = "wmc@2023";
-        $id = null;
         $password = crypt($password, $hash);
         $query->execute(
-            array(
-                ':id' => $id,
-                ':fullname' => $fullname,
-                ':emailaddress' => $emailaddress,
-                ':username' => $username,
-                ':password' => $password,
-                ':classicalusertype' => $classicalusertype
-            )
-        );
+                    array(
+                        ':id' => $id,
+                        ':fullname' => $fullname,
+                        ':emailaddress' => $emailaddress,
+                        ':username' => $username,
+                        ':password' => $password,
+                        ':classicalusertype' =>$classicalusertype
+                    )
+                );
         if (!$query)
             echo "Something went wrong. " . print_r($db->errorInfo());
         else

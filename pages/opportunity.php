@@ -19,12 +19,12 @@
                 ?>
                 <a href="index.php?page=logout">Logout</a>
             </div>
-            <br>
+            <!--<br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=adminmain">Main</a></li>
                 <li><a href="index.php?page=addproduct">Add Products</a></li>
                 <li><a href="index.php?page=opportunity">Add Opportunities</a></li>
-            </ul>
+            </ul>-->
             <h2>WMC Relationship Manager</h2>
 
             <?php

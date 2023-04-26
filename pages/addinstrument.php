@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>WMC Add Preferences</title>
+    <title>WMC Add Instrument</title>
     <meta charset="utf-8">
 </head>
 
@@ -22,10 +22,11 @@
             <br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=adminmain">Main</a></li>
+                <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
-                <li><a href="index.php?page=opportunity">Add Opportunities</a></li>
+                <li><a href="index.php?page=addopportunity">Add Opportunities</a></li>
             </ul>
-            <h2>WMC Add Products</h2>
+            <h2>WMC Add Instrument</h2>
             <?php
             if (isset($_POST['addproduct'])) {
 

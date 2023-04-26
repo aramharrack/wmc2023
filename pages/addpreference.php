@@ -22,6 +22,7 @@
             <br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=clientmain">Main</a></li>
+                <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addpreference">Add Preference</a></li>
                 <li><a href="index.php?page=opportunity">View Opportunity</a></li>
             </ul>
@@ -38,25 +39,25 @@
                 else
                     $errors[] = "Enter Preference Details!";
 
-                //if (!empty($_POST['assettype']))
+                if (!empty($_POST['assettype']))
                 $assettype = $_POST['assettype'];
-                //else
-                //    $errors[] = "Select Asset Type!";
+                else
+                    $errors[] = "Select Asset Type!";
             
-                //if (!empty($_POST['industrysector']))
+                if (!empty($_POST['industrysector']))
                 $industrysector = $_POST['industrysector'];
-                //else
-                //  $errors[] = "Select Industry Sector!";
+                else
+                  $errors[] = "Select Industry Sector!";
             
-                //if (!empty($_POST['country']))
+                if (!empty($_POST['country']))
                 $country = $_POST['country'];
-                //else
-                //    $errors[] = "Select Country!";
+                else
+                    $errors[] = "Select Country!";
             
-                //if (!empty($_POST['region']))
+                if (!empty($_POST['region']))
                 $region = $_POST['region'];
-                //else
-                //    $errors[] = "Select Region!";
+                else
+                    $errors[] = "Select Region!";
             
                 $clientid = getClientID($username);
 

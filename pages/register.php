@@ -52,14 +52,15 @@
                     foreach ($errors as $error)
                         echo $error . "<br>";
                 } else {
-                    $passwordError = CheckPassword($password, $confirmPassword);
-                    if ($passwordError) {
-                        echo $passwordError;
-                    } else {
+                    $passwordErrors = CheckPassword($password, $confirmPassword);
+                    if (!empty($passwordErrors))
+                        foreach ($passwordErrors as $error)
+                            echo $error . '<br>';
+                    else 
+                        // password is valid
                         $response = InsertRegistration($fullname, $emailaddress, $username, $password, $classicalusertype);
-                        if ($response)
-                            header('location:index.php?page=login');
-                    }
+                    if ($response)
+                        header('location:index.php?page=login');
                 }
             }
             ?>

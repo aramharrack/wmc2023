@@ -27,26 +27,4 @@ function GetPreferences($username)
     }
     return $prefinfos;
 }
-
-function GetUserInfo($username)
-{
-    include "db_connect.php";
-
-    $clientinfos = array();
-
-    $sql = "select * 
-            from clients
-            where username = :username";
-
-    $query = $db->prepare($sql);
-    $query->execute(array(':username' => $username));
-
-    if (!$query)
-        echo "Something went wrong. " . print_r($db->errorInfo());
-    else {
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        $clientinfos[] = $row;
-    }
-    return $clientinfos;
-}
 ?>

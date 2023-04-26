@@ -19,6 +19,11 @@
                 ?>
                 <a href="index.php?page=logout">Logout</a>
             </div>
+            <br>
+            <ul class="breadcrumb">
+                <li><a href="index.php?page=rmmain">Main</a></li>
+                <li><a href="index.php?page=profile">Profile</a></li>
+            </ul>
             <h2>WMC Relationship Manager</h2>
             <h3>Main Menu</h3>
 
@@ -53,52 +58,44 @@
                                 echo "Email: " . $clientinfo['emailaddress'] . "<br>";
                                 echo "<br>";
                             }
-                            ?>
-                            <?php
-
                             $infos = GetPreferences($clientinfo['id']);
                             ?>
                             <form method="post" action="index.php?page=opportunity">
-                            <table id="preference">
-                                <tr>
-                                    <th align="left" class="p1">Preference ID</th>
-                                    <th align="left" class="p1">Date Submitted</th>
-                                    <th align="left" class="p1">Preference Details</th>
-                                    <th align="left" class="p1">   
-                                        <!--<select name="lstopp" id="lstopp">
-                                            <option selected disabled>Match Preference</option>
-                                            <?php 
-                                            //$oppinfos = GetIdeas();
-                                            //foreach($oppinfos as $oppinfo){
-                                            ?>
-                                            <option><?php //echo $oppinfo['oppname'];?></option>
-                                            <?php 
-                                            //}
-                                            ?>
-                                        </select> -->
-                                    </th>
-                                </tr>
-                                <?php
-                                foreach ($infos as $info) {
-                                    ?>
+                                <table id="preference">
                                     <tr>
-                                        <td class="p1"><?php echo $info['prefid']; ?></td>
-                                        <td class="p1"><?php echo $info['datesubmitted']; ?></td>
-                                        <td class="p1"><?php echo $info['prefdetails']; ?></td>
-                                        <td class="p1"><a href="index.php?page=opportunity&prefid=<?php 
-                                        echo $info['prefid'];?>&clientname=<?php 
-                                        echo $clientinfo['fullname'];?>">Investment Option</a></td>
+                                        <th align="left" class="p1">Preference ID</th>
+                                        <th align="left" class="p1">Date Submitted</th>
+                                        <th align="left" class="p1">Preference Details</th>
+                                        <th align="left" class="p1"></th>
                                     </tr>
                                     <?php
-                                }
-                                ?>
-                            </table>
+                                    foreach ($infos as $info) {
+                                        ?>
+                                        <tr>
+                                            <td class="p1">
+                                                <?php echo $info['prefid']; ?>
+                                            </td>
+                                            <td class="p1">
+                                                <?php echo $info['datesubmitted']; ?>
+                                            </td>
+                                            <td class="p1">
+                                                <?php echo $info['prefdetails']; ?>
+                                            </td>
+                                            <td class="p1"><a href="index.php?page=opportunity&prefid=<?php
+                                            echo $info['prefid']; ?>&clientname=<?php
+                                             echo $clientinfo['fullname']; ?>">Find Investment</a></td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </table>
                             </form>
                             <?php
+
                         }
-                    } else if($_POST['lstoption'] === 'ideas'){
+                    } else if ($_POST['lstoption'] === 'ideas') {
                         echo "<br>Investment ideas selected!";
-                    }else
+                    } else
                         echo "<br>Enter a search criteria!";
                 } else
                     echo "<br>Select an option!";
