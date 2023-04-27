@@ -31,25 +31,26 @@
             if (!empty($_GET['prefid']) && !empty($_GET['clientname'])) {
                 $prefid = $_GET['prefid'];
                 $clientname = $_GET['clientname'];
-                $clientinfos = GetClientInfo($clientname);
-                foreach ($clientinfos as $clientinfo) {
+                $clientinfo = GetClientInfo($clientname);
+                foreach ($clientinfo as $info) {
                     echo "<br>";
                     echo "<strong>Client Profile</strong><br>";
-                    echo "ID: " . $clientinfo['id'] . "<br>";
-                    echo "Name: " . $clientinfo['fullname'] . "<br>";
-                    echo "Email: " . $clientinfo['emailaddress'] . "<br>";
+                    echo "ID: " . $info['id'] . "<br>";
+                    echo "Name: " . $info['fullname'] . "<br>";
+                    echo "Email: " . $info['emailaddress'] . "<br>";
                     echo "<br>";
                 }
 
-                $infos = GetPreferences($clientinfo['id']);
+                $infos = GetPreferences($info['id']);
 
                 if (isset($_POST['btnidea'])) {
-                    $lstopp = $_POST['lstopp']; // this gives me the oppname. needs oppid to insert to prefopp table
-                    //echo "<br> Oppid: " . $lstopp . "<br>"; 
+                    $lstopp = $_POST['lstopp'];
                     if (!empty($lstopp)) {
-                        $result = AssignOpportunity($prefid, $lstopp); //therefore oppname is passed here
-                        if ($response)
-                        header('location:index.php?page=rmmain');
+                        $result = AssignOpportunity($prefid, $lstopp);
+                        if ($result) {
+                            header('location:index.php?page=rmmain');
+                            exit;
+                        }
                     } else {
                         echo "Select an opportunity!";
                     }
@@ -64,12 +65,13 @@
                             <form action="" method="post">
                                 <select name="lstopp" id="lstopp">
                                     <option selected disabled>Match Preference</option>
-                                    <?php 
+                                    <?php
                                     $oppinfos = GetIdeas();
-                                    foreach($oppinfos as $oppinfo){
-                                    ?>
-                                    <option><?php echo $oppinfo['oppname'];?></option>
-                                    <?php 
+                                    foreach ($oppinfos as $oppinfo) {
+                                        ?>
+                                        <option value="<?php echo $oppinfo['oppid']; ?>"><?php echo $oppinfo['instrumentname']; ?>
+                                        </option>
+                                    <?php
                                     }
                                     ?>
                                 </select>
@@ -84,7 +86,8 @@
                             <td class="p1"><?php echo $info['prefid']; ?></td>
                             <td class="p1"><?php echo $info['datesubmitted']; ?></td>
                             <td class="p1"><?php echo $info['prefdetails']; ?></td>
-                            <td class="p1"><a href="index.php?page=rmmain&prefid=<?php echo $info['prefid']; ?>">Investment Option</a></td>
+                            <td class="p1"><a href="index.php?page=rmmain&prefid=<?php 
+                                echo $info['prefid']; ?>">Investment Option</a></td>
                         </tr>
                         <?php
                     }
@@ -93,7 +96,6 @@
                 <?php
             }
             ?>
-
         </div>
     </div>
 </body>

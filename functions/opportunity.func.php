@@ -61,34 +61,25 @@ function GetIdeas()
 
     $oppinfos = array();
 
-    $sql = "select oppname
-            from opportunities";
-
-    $result = $db->query($sql);
-    if (!$result)
+    $sql = "select opportunities.oppid, instruments.instrumentname
+            from opportunities,instruments
+            where opportunities.instrumentid = instruments.instrumentid";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    if (!$stmt) {
         echo "Something went wrong. " . print_r($db->errorInfo());
-    else {
-        while ($row = $result->fetch(PDO::FETCH_ASSOC))
+    } else {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $oppinfos[] = $row;
+        }
     }
     return $oppinfos;
 }
 
-function AssignOpportunity($prefid, $oppname)
+function AssignOpportunity($prefid, $oppid)
 {
     include "db_connect.php";
     $status = "assigned";
-    /*get oppid */
-    $sql = "select oppid
-            from opportunities
-            where oppname = :oppname";
-
-    $query = $db->prepare($sql);
-    $query->execute(array(':oppname' => $oppname));
-    $result = $query->fetch(PDO::FETCH_ASSOC);
-    if (!$result) 
-        return false;
-    $oppid = $result['oppid'];
     
     /*insert to db */
     $sql = "insert into preferenceopportunities
