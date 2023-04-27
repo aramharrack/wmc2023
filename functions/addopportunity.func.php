@@ -61,7 +61,7 @@ function InsertOpportunity($instrumentid, $availabledate, $closingdate, $oppdeta
     include "db_connect.php";
 
     $sql = "insert into opportunities
-            values(:instrumentid, :availabledate, :closingdate, :oppdetails, :staffid)";
+            values(:oppid, :instrumentid, :availabledate, :closingdate, :oppdetails, :staffid)";
     //prepare the query
     $query = $db->prepare($sql);
     //execute the query
@@ -74,8 +74,7 @@ function InsertOpportunity($instrumentid, $availabledate, $closingdate, $oppdeta
                 ':availabledate' => $availabledate,
                 ':closingdate' => $closingdate,
                 ':oppdetails' => $oppdetails,
-                ':countrycode' => $countrycode,
-                ':staffid' => $staffid
+                ':staffid'=>$staffid
             )
         );
         if (!$query)

@@ -21,10 +21,10 @@
             </div>
             <br>
             <ul class="breadcrumb">
-                <li><a href="index.php?page=adminmain">Main</a></li>
+            <li><a href="index.php?page=adminmain">Main</a></li>
                 <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
-                <li><a href="index.php?page=addopportunity">Add Opportunities</a></li>
+                <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
             </ul>
             <h2>WMC Add Instrument</h2>
             <?php
