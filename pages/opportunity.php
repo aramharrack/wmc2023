@@ -41,8 +41,8 @@
                     echo "<br>";
                 }
 
-                $infos = GetPreferences($info['id']);
-
+                $infos = GetPreferences($info['id'], $prefid); // pass the prefid to GetPreferences
+            
                 if (isset($_POST['btnidea'])) {
                     $lstopp = $_POST['lstopp'];
                     if (!empty($lstopp)) {
@@ -69,9 +69,9 @@
                                     $oppinfos = GetIdeas();
                                     foreach ($oppinfos as $oppinfo) {
                                         ?>
-                                        <option value="<?php echo $oppinfo['oppid']; ?>"><?php echo $oppinfo['instrumentname']; ?>
-                                        </option>
-                                    <?php
+                                        <option value="<?php echo $oppinfo['oppid']; ?>"><?php
+                                           echo $oppinfo['instrumentname']; ?></option>
+                                        <?php
                                     }
                                     ?>
                                 </select>
@@ -83,11 +83,16 @@
                     foreach ($infos as $info) {
                         ?>
                         <tr>
-                            <td class="p1"><?php echo $info['prefid']; ?></td>
-                            <td class="p1"><?php echo $info['datesubmitted']; ?></td>
-                            <td class="p1"><?php echo $info['prefdetails']; ?></td>
-                            <td class="p1"><a href="index.php?page=rmmain&prefid=<?php 
-                                echo $info['prefid']; ?>">Investment Option</a></td>
+                            <td class="p1">
+                                <?php echo $info['prefid']; ?>
+                            </td>
+                            <td class="p1">
+                                <?php echo $info['datesubmitted']; ?>
+                            </td>
+                            <td class="p1">
+                                <?php echo $info['prefdetails']; ?>
+                            </td>
+                            <td class="p1"></td>
                         </tr>
                         <?php
                     }
@@ -98,6 +103,7 @@
             ?>
         </div>
     </div>
+
 </body>
 
 </html>

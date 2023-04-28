@@ -11,11 +11,13 @@
         <div class="box">
             <div class="header">
                 <?php
-                if (!empty($_SESSION['username'])) {
-                    $username = ($_SESSION['username']);
-                    echo "Hello, " . $username . " | ";
-                } else
-                    header('location:index.php?page=login');
+                if (isset($_SESSION['username'])) {
+                    $username = $_SESSION['username'];
+                    echo "Hello, " . htmlspecialchars($username) . " | ";
+                } else {
+                    header('Location: index.php?page=login');
+                    exit;
+                }
                 ?>
                 <a href="index.php?page=logout">Logout</a>
             </div>
@@ -26,79 +28,84 @@
             </ul>
             <h2>WMC Relationship Manager</h2>
             <h3>Main Menu</h3>
-
-            <?php
-            if (!empty($_POST['lstoption']))
-                $clientname = $_POST['txtoption'];
-            ?>
-
             <form method="post" action="">
                 <select name="lstoption" id="lstoption">
                     <option selected disabled>Select an option</option>
-                    <option value="clients">Clients</option>
-                    <option value="ideas">Investment Opportunities</option>
+                    <option value="clients" <?php if (isset($_POST['lstoption']) && $_POST['lstoption'] === 'clients') {
+                        echo 'selected';
+                    } ?>>Clients</option>
+                    <option value="ideas" <?php if (isset($_POST['lstoption']) && $_POST['lstoption'] === 'ideas') {
+                        echo 'selected';
+                    } ?>>Investment Opportunities</option>
                 </select>
                 <input type="text" name="txtoption" id="txtoption" placeholder="Enter Search Criteria"
-                    value="<?php echo isset($clientname) ? $clientname : '' ?>">
+                    value="<?php echo htmlspecialchars($clientname); ?>">
                 <input type="submit" name="btnoption" id="btnoption" value="Enter Query">
             </form>
-
             <?php
-            if (isset($_POST['btnoption'])) {
-                if (!empty($_POST['lstoption'])) {
-                    if (!empty($_POST['txtoption'])) {
-                        if ($_POST['lstoption'] === 'clients') {
-                            $clientname = $_POST['txtoption'];
-                            $clientinfos = GetClientInfo($clientname);
-                            foreach ($clientinfos as $clientinfo) {
-                                echo "<br>";
-                                echo "<strong>Client Profile</strong><br>";
-                                echo "ID: " . $clientinfo['id'] . "<br>";
-                                echo "Name: " . $clientinfo['fullname'] . "<br>";
-                                echo "Email: " . $clientinfo['emailaddress'] . "<br>";
-                                echo "<br>";
-                            }
-                            $infos = GetPreferences($clientinfo['id']);
+            $clientname = '';
+            if (isset($_POST['lstoption']) && !empty($_POST['txtoption'])) {
+                $option = $_POST['lstoption'];
+                $clientname = $_POST['txtoption'];
+                if ($option === 'clients') {
+                    $clientinfos = GetClientInfo($clientname);
+                    if (!empty($clientinfos)) {
+                        foreach ($clientinfos as $clientinfo) {
                             ?>
-                            <form method="post" action="index.php?page=opportunity">
-                                <table id="preference">
+                            <br>
+                            <strong>Client Profile</strong><br>
+                            ID:
+                            <?php echo htmlspecialchars($clientinfo['id']); ?><br>
+                            Name:
+                            <?php echo htmlspecialchars($clientinfo['fullname']); ?><br>
+                            Email:
+                            <?php echo htmlspecialchars($clientinfo['emailaddress']); ?><br>
+                            <br>
+                            <?php
+                        }
+                        $infos = GetPreferences($clientinfo['id']);
+                        ?>
+                        <form method="post" action="index.php?page=opportunity">
+                            <table id="preference">
+                                <tr>
+                                    <th align="left" class="p1">Preference ID</th>
+                                    <th align="left" class="p1">Date Submitted</th>
+                                    <th align="left" class="p1">Preference Details</th>
+                                    <th align="left" class="p1"></th>
+                                </tr>
+                                <?php
+                                foreach ($infos as $info) {
+                                    ?>
                                     <tr>
-                                        <th align="left" class="p1">Preference ID</th>
-                                        <th align="left" class="p1">Date Submitted</th>
-                                        <th align="left" class="p1">Preference Details</th>
-                                        <th align="left" class="p1"></th>
+                                        <td class="p1">
+                                            <?php echo htmlspecialchars($info['prefid']); ?>
+                                        </td>
+                                        <td class="p1">
+                                            <?php echo htmlspecialchars($info['datesubmitted']); ?>
+                                        </td>
+                                        <td class="p1">
+                                            <?php echo htmlspecialchars($info['prefdetails']); ?>
+                                        </td>
+                                        <td class="p1">
+                                            <a href="index.php?page=opportunity&prefid=<?php
+                                            echo htmlspecialchars($info['prefid']); ?>&clientname=<?php
+                                              echo htmlspecialchars($clientinfo['fullname']); ?>">Find Opportunity</a>
+                                        </td>
                                     </tr>
                                     <?php
-                                    foreach ($infos as $info) {
-                                        ?>
-                                        <tr>
-                                            <td class="p1">
-                                                <?php echo $info['prefid']; ?>
-                                            </td>
-                                            <td class="p1">
-                                                <?php echo $info['datesubmitted']; ?>
-                                            </td>
-                                            <td class="p1">
-                                                <?php echo $info['prefdetails']; ?>
-                                            </td>
-                                            <td class="p1"><a href="index.php?page=opportunity&prefid=<?php
-                                            echo $info['prefid']; ?>&clientname=<?php
-                                             echo $clientinfo['fullname']; ?>">Find Investment</a></td>
-                                        </tr>
-                                        <?php
-                                    }
-                                    ?>
-                                </table>
-                            </form>
-                            <?php
-
-                        }
-                    } else if ($_POST['lstoption'] === 'ideas') {
-                        echo "<br>Investment ideas selected!";
-                    } else
-                        echo "<br>Enter a search criteria!";
-                } else
-                    echo "<br>Select an option!";
+                                }
+                                ?>
+                            </table>
+                        </form>
+                        <?php
+                    } else {
+                        echo "No client found!";
+                    }
+                } else if ($option === 'ideas') {
+                    echo "<br>Investment ideas selected!";
+                } else {
+                    echo "<br>Invalid option selected!";
+                }
             }
             ?>
         </div>

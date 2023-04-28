@@ -21,7 +21,7 @@ function GetClientInfo($clientname)
     return $clientinfos;
 }
 
-function GetPreferences($clientid)
+/*function GetPreferences($clientid)
 {
     include "db_connect.php";
 
@@ -41,7 +41,7 @@ function GetPreferences($clientid)
     and industrysectors.parmcode = preferences.parmcode
     and countries.countrycode = preferences.countrycode
     and regions.regionid = preferences.regionid
-    and clients.id = :clientid"; */
+    and clients.id = :clientid";
 
     $query = $db->prepare($sql);
     $query->execute(array(':clientid' => $clientid));
@@ -53,7 +53,24 @@ function GetPreferences($clientid)
             $prefinfos[] = $row;
     }
     return $prefinfos;
+}*/
+
+function GetPreferences($clientid, $prefid = null) {
+    include "db_connect.php";
+    $sql = "SELECT * FROM preferences WHERE clientid = :clientid";
+    if ($prefid) {
+        $sql .= " AND prefid = :prefid";
+    }
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':clientid', $clientid, PDO::PARAM_INT);
+    if ($prefid) {
+        $stmt->bindValue(':prefid', $prefid, PDO::PARAM_INT);
+    }
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
 }
+
 
 function GetIdeas()
 {
