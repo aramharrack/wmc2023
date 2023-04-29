@@ -38,35 +38,61 @@
             //echo"<a href="index.php?page=clientmain">Main</a>";
             ?>
             <br>
-            <button type="button" onclick="window.location.href='index.php?page=<?php echo $page ?>'">Return to
-                Main</button>
+            <button type="button" onclick="window.location.href='index.php?page=<?php
+            echo $page ?>'">Return to Main</button>
 
             <?php
             // Handle form submission
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Get updated form data
-                $updatedData = [
-                    'fullname' => $_POST['fullname'],
-                    'emailaddress' => $_POST['emailaddress'],
-                    'password' => $_POST['password'],
-                ];
+                $errors = [];
+                if (isset($_POST['password'])) {
+                    if (!empty($_POST['password'])) {
+                        $password = $_POST['password'];
+                    } else {
+                        $errors[] = "Enter a new password!";
+                    }
+                }
+                if (isset($_POST['confirmpassword'])) {
+                    if (!empty($_POST['confirmpassword'])) {
+                        $password = $_POST['confirmpassword'];
+                    } else {
+                        $errors[] = "Enter confirm new password!";
+                    }
+                }
+                if (!empty($errors)) {
+                    foreach ($errors as $error) {
+                        echo $error . "<br>";
+                    }
+                } else {
+                    // Get updated form data
+                    $updatedData = [
+                        'fullname' => $_POST['fullname'],
+                        'emailaddress' => $_POST['emailaddress'],
+                        'password' => $password,
+                    ];
 
-                $passwordError = CheckPassword($updatedData['password'], $_POST['confirmPassword']);
-                if (!empty($passwordErrors)) 
-                        foreach ($passwordErrors as $error)
+                    $passwordErrors = CheckPassword($password, $_POST['confirmpassword']);
+                    if (!empty($passwordErrors)) {
+                        foreach ($passwordErrors as $error) {
                             echo $error . '<br>';
-                else
-                    //Update the user's profile in the database
-                    $response = UpdateUser($userID, 
-                                            $updatedData['fullname'], 
-                                            $updatedData['emailaddress'], 
-                                            $username, 
-                                            $updatedData['password'], 
-                                            $classicalusertype);
+                        }
+                    } else {
+                        // Update the user's profile in the database
+                        $response = UpdateUser(
+                            $userID,
+                            $updatedData['fullname'],
+                            $updatedData['emailaddress'],
+                            $username,
+                            $updatedData['password'],
+                            $classicalusertype
+                        );
 
-                // Redirect the user to their updated profile page
-                if ($response)
-                    header('location:index.php?page=profile');
+                        // Redirect the user to their updated profile page
+                        if ($response) {
+                            header('location:index.php?page=profile');
+                        }
+                    }
+                }
             }
 
             // Display the form with current user data filled in as default values
@@ -85,18 +111,19 @@
                     </tr>
                     <tr>
                         <td><label for="password">Password:</label></td>
-                        <td> <input type="password" id="password" name="password" value=""></td>
+                        <td><input type="password" id="password" name="password" value=""></td>
                     </tr>
                     <tr>
-                        <td><label for="confirmPassword">Confirm Password:</label></td>
-                        <td> <input type="password" id="confirmPassword" name="confirmPassword" value=""></td>
+                        <td><label for="confirmpassword">Confirm Password:</label></td>
+                        <td><input type="password" id="confirmpassword" name="confirmpassword" value=""></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><button type="submit">Update Profile</button></td>
+                        <td><input type="submit" value="Update Profile" name="updateprofile" id="updateprofile"></td>
                     </tr>
                 </table>
             </form>
+
         </div>
     </div>
 </body>

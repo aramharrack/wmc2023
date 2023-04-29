@@ -55,19 +55,24 @@ function GetClientInfo($clientname)
     return $prefinfos;
 }*/
 
-function GetPreferences($clientid, $prefid = null) {
+function GetPreferences($clientid, $prefid = null) 
+{
     include "db_connect.php";
-    $sql = "SELECT * FROM preferences WHERE clientid = :clientid";
+    
+    $sql = "select * 
+            from preferences 
+            where clientid = :clientid";
+
     if ($prefid) {
-        $sql .= " AND prefid = :prefid";
+        $sql .= " and prefid = :prefid";
     }
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':clientid', $clientid, PDO::PARAM_INT);
+    $query = $db->prepare($sql);
+    $query->bindValue(':clientid', $clientid, PDO::PARAM_INT);
     if ($prefid) {
-        $stmt->bindValue(':prefid', $prefid, PDO::PARAM_INT);
+        $query->bindValue(':prefid', $prefid, PDO::PARAM_INT);
     }
-    $stmt->execute();
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
 
@@ -78,15 +83,15 @@ function GetIdeas()
 
     $oppinfos = array();
 
-    $sql = "select opportunities.oppid, instruments.instrumentname
+    $sql = "select opportunities.oppid, opportunities.oppname, instruments.shortname
             from opportunities,instruments
             where opportunities.instrumentid = instruments.instrumentid";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    if (!$stmt) {
+    $query = $db->prepare($sql);
+    $query->execute();
+    if (!$query) {
         echo "Something went wrong. " . print_r($db->errorInfo());
     } else {
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $oppinfos[] = $row;
         }
     }

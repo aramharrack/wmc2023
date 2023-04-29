@@ -70,7 +70,7 @@
                                     foreach ($oppinfos as $oppinfo) {
                                         ?>
                                         <option value="<?php echo $oppinfo['oppid']; ?>"><?php
-                                           echo $oppinfo['instrumentname']; ?></option>
+                                           echo $oppinfo['oppname']." - ".$oppinfo['shortname']; ?></option>
                                         <?php
                                     }
                                     ?>

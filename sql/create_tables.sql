@@ -82,6 +82,7 @@ CREATE TABLE instruments (
 
 CREATE TABLE opportunities (
   oppid INT NOT NULL AUTO_INCREMENT,
+  oppname VARCHAR(50) NOT NULL,
   instrumentid INT NOT NULL,
   availabledate DATE NOT NULL,
   closingdate DATE NOT NULL,
@@ -109,20 +110,15 @@ CREATE TABLE preferences (
   FOREIGN KEY (regionid) REFERENCES regions (regionid) ON DELETE CASCADE
 );
 
-CREATE TABLE investmentideas (
-  ideaid INT NOT NULL AUTO_INCREMENT,
-ideatitle VARCHAR(255) NOT NULL,
-ideadesc TEXT NOT NULL,
-PRIMARY KEY (ideaid)
-);
-
-CREATE TABLE ideaproducts (
-productsid INT NOT NULL AUTO_INCREMENT,
-ideaid INT NOT NULL,
-instrumentid INT NOT NULL,
-PRIMARY KEY (productsid),
-FOREIGN KEY (ideaid) REFERENCES investmentideas (ideaid) ON DELETE CASCADE,
-FOREIGN KEY (instrumentid) REFERENCES instruments (instrumentid) ON DELETE CASCADE
+CREATE TABLE investments (
+  investmentid INT NOT NULL AUTO_INCREMENT,
+  investmentdate DATE NOT NULL,
+  instrumentid INT NOT NULL,
+  clientid INT NOT NULL,
+  comments TEXT NOT NULL,
+  PRIMARY KEY (investmentid),
+  FOREIGN KEY (instrumentid) REFERENCES instruments (instrumentid) ON DELETE CASCADE,
+  FOREIGN KEY (clientid) REFERENCES clients (id) ON DELETE CASCADE,
 );
 
 CREATE TABLE preferenceopportunities (
@@ -148,8 +144,8 @@ CREATE TABLE IF currencies (
 
 CREATE TABLE risklevels (
   risklvlid INT NOT NULL AUTO_INCREMENT,
-riskdesc VARCHAR(255) NOT NULL,
-riskdefinition TEXT NOT NULL,
-PRIMARY KEY (risklvlid)
+  riskdesc VARCHAR(255) NOT NULL,
+  riskdefinition TEXT NOT NULL,
+  PRIMARY KEY (risklvlid)
 );
 

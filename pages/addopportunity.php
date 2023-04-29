@@ -62,6 +62,11 @@
                     } else {
                         $errors[] = "Please select an instrument!";
                     }
+                    if (!empty($_POST['oppname'])) {
+                        $oppname = $_POST['oppname'];
+                    } else {
+                        $errors[] = "Enter Opportunity Type!";
+                    }
                     if (!empty($_POST['availabledate'])) {
                         $availabledate = $_POST['availabledate'];
                     } else {
@@ -79,7 +84,7 @@
                     }
                     if (empty($errors)) {
                         $adminid = GetAdminID($username);
-                        $response = InsertOpportunity($instrumentid, $availabledate, $closingdate, $oppdetails, $adminid);
+                        $response = InsertOpportunity($oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $adminid);
                         if ($response) {
                             header('location:index.php?page=adminmain');
                             exit;
@@ -97,6 +102,11 @@
             <br>
             <form method="post" action="">
                 <table id="preference">
+                    <tr>
+                        <th class="p3"><label for="oppname">Opportunity Type</label></th>
+                        <td class="p4"><input type="text" name="oppname" id="oppname"
+                                value="<?php echo isset($oppname) ? $oppname : ''; ?>"></td>
+                    </tr>
                     <tr>
                         <th class="p3"><label for="availabledate">Available Date</label></th>
                         <td class="p4"><input type="date" name="availabledate" id="availabledate"

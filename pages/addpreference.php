@@ -24,7 +24,7 @@
                 <li><a href="index.php?page=clientmain">Main</a></li>
                 <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addpreference">Add Preference</a></li>
-                <li><a href="index.php?page=opportunity">View Opportunity</a></li>
+                <li><a href="index.php?page=opportunity">View Investments</a></li>
             </ul>
             <h2>WMC Add Preferences</h2>
 

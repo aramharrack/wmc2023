@@ -32,17 +32,6 @@ function GetPreferences($clientid)
             where clients.id = preferences.clientid
             and clients.id = :clientid";
 
-    /* $sql = "select preferences.prefid, preferences.datesubmitted, preferences.prefdetails, 
-            assettypes.assetdesc, industrysectors.sectordesc,
-            countries.countryname, regions.regionname
-        from preferences, clients, assettypes, industrysectors, countries, regions 
-        where clients.id = preferences.clientid
-        and assettypes.assetid = preferences.assetid
-        and industrysectors.parmcode = preferences.parmcode
-        and countries.countrycode = preferences.countrycode
-        and regions.regionid = preferences.regionid
-        and clients.id = :clientid"; */
-
     $query = $db->prepare($sql);
     $query->execute(array(':clientid' => $clientid));
 

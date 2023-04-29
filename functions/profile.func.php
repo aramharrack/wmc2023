@@ -28,22 +28,6 @@ function GetUserInfo($username)
     }
     return $clientinfos;
 }
-function CheckUsernameExists($username)
-{
-    include "db_connect.php";
-    // Check if the username already exists in any of the user tables
-    $query = $db->prepare("
-        select username from clients where username = :username
-        union
-        select username from managers where username = :username
-        union
-        select username from admins where username = :username
-    ");
-    $query->bindParam(':username', $username);
-    $query->execute();
-
-    return ($query->rowCount() > 0);
-}
 
 function CheckPassword($password, $confirmPassword)
 {

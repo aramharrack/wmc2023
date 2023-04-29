@@ -4,6 +4,84 @@
 <head>
     <title>WMC Client Main</title>
     <meta charset="utf-8">
+    <style>
+        /* General styles */
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.box {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 18px;
+}
+
+a {
+  color: #0000ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.breadcrumb li {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.breadcrumb li a {
+  color: #666;
+  text-decoration: none;
+}
+
+.breadcrumb li a:hover {
+  text-decoration: underline;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.p1 {
+  width: 150px;
+}
+
+
+    </style>
 </head>
 
 <body>
@@ -24,7 +102,7 @@
                 <li><a href="index.php?page=clientmain">Main</a></li>
                 <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addpreference">Add Preference</a></li>
-                <li><a href="index.php?page=opportunity">View Opportunity</a></li>
+                <li><a href="index.php?page=opportunity">View Investments</a></li>
             </ul>
             <h2>WMC Client Main</h2>
             <?php
@@ -64,8 +142,8 @@
                         <td class="p1">
                             <?php echo $info['regionname']; ?>
                         </td>
-                        <td class="p1"><a href="index.php?page=opportunity&prefid=<?php
-                            echo $info['prefid']; ?>">Extract Idea</a> |
+                        <td class="p1"><a href="index.php?page=idea&prefid=<?php 
+                            echo $info['prefid']; ?>">Extract Idea</a>
                             <a href="index.php?page=editpreference&prefid=<?php
                             echo $info['prefid']; ?>">Edit</a> |
                             <a href="index.php?page=deletepreference&prefid=<?php echo $info['prefid']; ?>" 
