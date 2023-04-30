@@ -28,7 +28,7 @@
             </ul>
             <h2>WMC Add Instrument</h2>
             <?php
-            if (isset($_POST['addproduct'])) {
+            if (isset($_POST['addinstrument'])) {
 
                 if (!empty($_POST['shortname']))
                     $shortname = $_POST['shortname'];
@@ -103,7 +103,7 @@
                 if (!empty($_POST['maturitydate']))
                     $maturitydate = $_POST['maturitydate'];
                 else
-                    $maturitydate[] = null;
+                    $maturitydate = null;
 
                 if (!empty($_POST['coupon']))
                     $coupon = $_POST['coupon'];
@@ -244,10 +244,9 @@
                                 <?php echo $riskoptions = GetRiskOptions(); ?>
                             </select></td>
                     </tr>
-
                     <tr>
                         <th class="p3"></th>
-                        <td class="p4"><input type="submit" value="Add Product" name="addproduct" id="addproduct"></td>
+                        <td class="p4"><input type="submit" value="Add Instrument" name="addinstrument" id="addinstrument"></td>
                     </tr>
                 </table>
             </form>

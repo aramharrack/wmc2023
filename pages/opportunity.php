@@ -40,7 +40,6 @@
                     echo "Email: " . $info['emailaddress'] . "<br>";
                     echo "<br>";
                 }
-
                 $infos = GetPreferences($info['id'], $prefid); // pass the prefid to GetPreferences
             
                 if (isset($_POST['btnidea'])) {
@@ -56,6 +55,7 @@
                     }
                 }
                 ?>
+                <button type="button" onclick="window.location.href='index.php?page=rmmain'">Return to Main</button>
                 <table id="preference">
                     <tr>
                         <th align="left" class="p1">Preference ID</th>

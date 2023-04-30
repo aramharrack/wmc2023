@@ -74,10 +74,14 @@ CREATE TABLE instruments (
   maturitydate DATE,
   coupon FLOAT,
   riskrating INT NOT NULL,
+  staffid INT NOT NULL,
   PRIMARY KEY (instrumentid),
   FOREIGN KEY (assetid) REFERENCES assettypes (assetid) ON DELETE CASCADE,
   FOREIGN KEY (parmcode) REFERENCES industrysectors (parmcode) ON DELETE CASCADE,
-  FOREIGN KEY (countrycode) REFERENCES countries (countrycode) ON DELETE CASCADE
+  FOREIGN KEY (countrycode) REFERENCES countries (countrycode) ON DELETE CASCADE,
+  FOREIGN KEY (currency) REFERENCES currencies (ccycode) ON DELETE CASCADE,
+  FOREIGN KEY (riskrating) REFERENCES risklevels (risklvlid) ON DELETE CASCADE,
+  FOREIGN KEY (staffid) REFERENCES admins (id) ON DELETE CASCADE
 );
 
 CREATE TABLE opportunities (

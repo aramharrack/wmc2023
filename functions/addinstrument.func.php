@@ -64,23 +64,25 @@ function InsertInstrument($shortname,
                 ':isin' => $isin,
                 ':issuer' => $issuer,
                 ':stockexchange' => $stockexchange,
-                ':currency'=>$currency,
-                ':denomination'=>$denomination,
-                ':closingprice'=>$closingprice,
-                ':priceclosingdate'=>$priceclosingdate,
-                ':issuedate'=>$issuedate,
-                ':maturitydate'=>$maturitydate,
-                ':coupon'=>$coupon,
-                ':riskrating'=>$riskrating,
-                ':staffid'=>$staffid
+                ':currency' => $currency,
+                ':denomination' => $denomination,
+                ':closingprice' => $closingprice,
+                ':priceclosingdate' => $priceclosingdate,
+                ':issuedate' => $issuedate,
+                ':maturitydate' => $maturitydate,
+                ':coupon' => $coupon,
+                ':riskrating' => $riskrating,
+                ':staffid' => $staffid
             )
         );
+        //var_dump($query->errorInfo());
         if (!$query)
             echo "Something went wrong. " . print_r($db->errorInfo());
         else
             return $query;
-    } else
+    } else {
         echo "Something went wrong." . print_r($db->errorInfo());
+    }
 }
 
 function GetAssetOptions()

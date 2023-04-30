@@ -21,7 +21,7 @@
                 ?>
                 <a href="index.php?page=logout">Logout</a>
             </div>
-            <p>&nbsp;</p>
+            <br>
             <ul class="breadcrumb">
                 <li><a href="index.php?page=rmmain">Main</a></li>
                 <li><a href="index.php?page=profile">Profile</a></li>
@@ -49,15 +49,16 @@
                     if ($option === 'clients') {
                         $clientname = $_POST['txtoption'];
                         $clientinfos = GetClientInfo($clientname);
-
-                        foreach ($clientinfos as $clientinfo) {
-                            echo "<br>";
-                            echo "Client ID: " . $clientinfo['id'] . "<br>";
-                            echo "Client's  Name: " . $clientinfo['fullname'] . "<br>";
-                            echo "Client's Email: " . $clientinfo['emailaddress'] . "<br>";
-                            echo "<br>";
-
-                            $infos = GetPreferences($clientinfo['id']);
+                        
+                        if (!empty($clientinfos)) {
+                            foreach ($clientinfos as $clientinfo) {
+                                echo "<br>";
+                                echo "<strong>Client ID: " . $clientinfo['id'] . "</strong><br>";
+                                echo "<strong>Client's  Name: " . $clientinfo['fullname'] . "</strong><br>";
+                                echo "<strong>Client's Email: " . $clientinfo['emailaddress'] . "</strong><br>";
+                                echo "<br>";
+                            }
+                            $prefinfos = GetPreferences($clientinfo['id']);
                             ?>
                             <form method="post" action="index.php?page=opportunity">
                                 <table id="preference">
@@ -68,20 +69,20 @@
                                         <th align="left" class="p1"></th>
                                     </tr>
                                     <?php
-                                    foreach ($infos as $info) {
+                                    foreach ($prefinfos as $prefinfo) {
                                         ?>
                                         <tr>
                                             <td class="p1">
-                                                <?php echo $info['prefid']; ?>
+                                                <?php echo $prefinfo['prefid']; ?>
                                             </td>
                                             <td class="p1">
-                                                <?php echo $info['datesubmitted']; ?>
+                                                <?php echo $prefinfo['datesubmitted']; ?>
                                             </td>
                                             <td class="p1">
-                                                <?php echo $info['prefdetails']; ?>
+                                                <?php echo $prefinfo['prefdetails']; ?>
                                             </td>
                                             <td class="p1"><a href="index.php?page=opportunity&prefid=<?php echo
-                                                $info['prefid']; ?>&clientname=<?php echo
+                                                $prefinfo['prefid']; ?>&clientname=<?php echo
                                                  $clientinfo['fullname']; ?>">Find Opportunity</a></td>
                                         </tr>
                                         <?php
@@ -90,57 +91,50 @@
                                 </table>
                             </form>
                             <?php
+                        } else {
+                            echo "<br>Client not found!";
                         }
                     } else if ($option === 'ideas') {
                         $oppinfos = SearchOpportunities($txtoption);
 
                         if (!empty($oppinfos)) {
                             ?>
-                                <p>&nbsp;</p>
-                                <table id="opportunities">
-                                    <tr>
-                                        <th align="left" class="p1">Opportunity ID</th>
-                                        <th align="left" class="p1">Opportunity Type</th>
-                                        <th align="left" class="p1">Instrument Name</th>
-                                        <th align="left" class="p1">Issuer Name</th>
-                                        <th align="left" class="p1"></th>
-                                    </tr>
-                                    <?php
-                                    foreach ($oppinfos as $oppinfo) {
-                                        ?>
-                                        <tr>
-                                            <td class="p1">
-                                            <?php echo $oppinfo['oppid']; ?>
-                                            </td>
-                                            <td class="p1">
-                                            <?php echo $oppinfo['oppname']; ?>
-                                            </td>
-                                            <td class="p1">
-                                            <?php echo $oppinfo['instrumentname']; ?>
-                                            </td>
-                                            <td class="p1">
-                                            <?php echo $oppinfo['issuer']; ?>
-                                            </td>
-                                            <td class="p1"><a href="index.php?page=opportunity&oppid=<?php echo
-                                                $oppinfo['oppid']; ?>">View Details</a></td>
-                                        </tr>
-                                    <?php
-                                    }
+                            <br>
+                            <table id="opportunities">
+                                <tr>
+                                    <th align="left" class="p1">Opportunity ID</th>
+                                    <th align="left" class="p1">Opportunity Name</th>
+                                    <th align="left" class="p1">Instrument Name</th>
+                                    <th align="left" class="p1">Issuer Name</th>
+                                    <th align="left" class="p1"></th>
+                                </tr>
+                                <?php
+                                foreach ($oppinfos as $oppinfo) {
                                     ?>
-                                </table>
+                                    <tr>
+                                        <td class="p1"><?php echo $oppinfo['oppid']; ?></td>
+                                        <td class="p1"><?php echo $oppinfo['oppname']; ?></td>
+                                        <td class="p1"><?php echo $oppinfo['instrumentname']; ?></td>
+                                        <td class="p1"><?php echo $oppinfo['issuer']; ?></td>
+                                        <td class="p1"><a href="index.php?page=opportunity&oppid=<?php echo
+                                            $oppinfo['oppid']; ?>">Recommend</a></td>
+                                    </tr>
+                                <?php
+                                }
+                                ?>
+                            </table>
                             <?php
                         } else {
                             echo "<br>No investment opportunities found!";
                         }
                     }
                 } else {
-                    echo "Enter search criteria!";
+                    echo "<br>Enter search criteria!";
                 }
             } else {
-                echo "Select an option!";
+                echo "<br>Select an option!";
             }
             ?>
-
         </div>
     </div>
 </body>

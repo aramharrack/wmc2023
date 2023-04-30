@@ -12,14 +12,16 @@ function GetClientInfo($clientname)
     $query = $db->prepare($sql);
     $query->execute(array(':clientname' => $clientname));
 
-    if (!$query)
+    if (!$query) {
         echo "Something went wrong. " . print_r($db->errorInfo());
-    else {
+    } else {
         $row = $query->fetch(PDO::FETCH_ASSOC);
-        $clientinfos[] = $row;
+        if ($row)
+            $clientinfos[] = $row;
     }
     return $clientinfos;
 }
+
 
 function GetPreferences($clientid)
 {
@@ -66,7 +68,6 @@ function GetIdeas()
 
 function SearchOpportunities($txtoption) {
     include "db_connect.php";
-    
     $oppinfos = array();
     
     $sql = "select opportunities.oppid, opportunities.oppname,
@@ -74,9 +75,10 @@ function SearchOpportunities($txtoption) {
             from opportunities, instruments
             where opportunities.instrumentid = instruments.instrumentid
             and instruments.instrumentname like :txtoption";
+
     
     $query = $db->prepare($sql);
-    $query->execute(array(':txtoption' => "%{$txtoption}%"));
+    $query->execute(array(':txtoption' => "%$txtoption%"));
 
     if (!$query)
         echo "Something went wrong. " . print_r($db->errorInfo());
