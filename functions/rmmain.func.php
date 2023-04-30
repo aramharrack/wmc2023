@@ -48,16 +48,40 @@ function GetIdeas()
 {
     include "db_connect.php";
 
-    $oppinfos = array();
+    $ideainfos = array();
 
     $sql = "select oppname
             from opportunities";
-
-    $result = $db->query($sql);
-    if (!$result)
+    
+    $query = $db->prepare($sql);
+    $query = $db->query($sql);
+    if (!$query)
         echo "Something went wrong. " . print_r($db->errorInfo());
     else {
-        while ($row = $result->fetch(PDO::FETCH_ASSOC))
+        while ($row = $query->fetch(PDO::FETCH_ASSOC))
+            $ideainfos[] = $row;
+    }
+    return $ideainfos;
+}
+
+function SearchOpportunities($txtoption) {
+    include "db_connect.php";
+    
+    $oppinfos = array();
+    
+    $sql = "select opportunities.oppid, opportunities.oppname,
+            instruments.instrumentname, instruments.issuer
+            from opportunities, instruments
+            where opportunities.instrumentid = instruments.instrumentid
+            and instruments.instrumentname like :txtoption";
+    
+    $query = $db->prepare($sql);
+    $query->execute(array(':txtoption' => "%{$txtoption}%"));
+
+    if (!$query)
+        echo "Something went wrong. " . print_r($db->errorInfo());
+    else {
+        while ($row = $query->fetch(PDO::FETCH_ASSOC))
             $oppinfos[] = $row;
     }
     return $oppinfos;
