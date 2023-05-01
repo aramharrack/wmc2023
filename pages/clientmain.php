@@ -40,12 +40,13 @@
           <th align="left" class="p1">Industry Sector</th>
           <th align="left" class="p1">Country</th>
           <th align="left" class="p1">Region</th>
+          <th align="left" class="p1"></th>
         </tr>
         <?php
         foreach ($infos as $info) {
           ?>
           <tr>
-            <!-- <td class="p1"><?php echo $info['prefid']; ?></td> -->
+            <!-- <td class="p1"><?php //echo $info['prefid']; ?></td> -->
             <td class="p1">
               <?php echo $info['datesubmitted']; ?>
             </td>

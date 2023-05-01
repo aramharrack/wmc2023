@@ -1,13 +1,14 @@
 <?php 
-function DeletePreference($prefid) {
+function DeleteInstrument($instrumentid) {
     include "db_connect.php";
 
-    $sql = "DELETE FROM preferences WHERE prefid = :prefid";
+    $sql = "delete from instruments 
+            where instrumentid = :instrumentid";
 
     try {
         // prepare the query
         $query = $db->prepare($sql);
-        $query->bindParam(':prefid', $prefid, PDO::PARAM_INT);
+        $query->bindParam(':instrumentid', $instrumentid, PDO::PARAM_INT);
 
         // execute the query
         if ($query->execute()) {
@@ -16,7 +17,7 @@ function DeletePreference($prefid) {
             return false;
         }
     } catch (PDOException $e) {
-        echo "Error deleting preference: " . $e->getMessage();
+        echo "Error deleting instrument: " . $e->getMessage();
         return false;
     }
 }
