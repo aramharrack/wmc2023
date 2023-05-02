@@ -35,7 +35,7 @@
             ?>
             <?php
             if (isset($_POST['addinstrument'])) {
-
+                $datesubmitted = $_POST['datesubmitted'];
                 if (!empty($_POST['shortname']))
                     $shortname = $_POST['shortname'];
                 else
@@ -129,6 +129,7 @@
                     }
                 } else {
                     $response = UpdateInstrument(
+                        $datesubmitted,
                         $instrumentid,
                         $shortname,
                         $instrumentname,
@@ -161,112 +162,117 @@
             foreach ($infos as $info) {
                 ?>
                 <form method="post">
-                <table id="preference">
-                    <tr>
-                        <th class="p3"><label for="shortname">Display Name</label></th>
-                        <td class="p4"><input type="text" name="shortname" id="shortname"
-                                value="<?php echo $info['shortname']; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="instrumentname">Instrument Name</label></th>
-                        <td class="p4"><input type="text" name="instrumentname" id="instrumentname"
-                                value="<?php echo $info['instrumentname']; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="assettype">Asset Type</label></th>
-                        <td><select id="assettype" name="assettype">
-                                <option value="">Select an Asset Type...</option>
-                                <?php echo $assetoptions = GetAssetOptions(); ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="industrysector">Industry Sector</label></th>
-                        <td><select id="industrysector" name="industrysector">
-                                <option value="">Select an Industry Sector...</option>
-                                <?php echo $industryoptions = GetIndustryOptions(); ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="country">Country</label></th>
-                        <td><select id="country" name="country">
-                                <option value="">Select a Country...</option>
-                                <?php echo $countryoptions = GetCountryOptions(); ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="ticker">Ticker</label></th>
-                        <td class="p4"><input type="text" name="ticker" id="ticker"
-                                value="<?php echo $info['ticker']; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="isin">ISIN</label></th>
-                        <td class="p4"><input type="text" name="isin" id="isin"
-                                value="<?php echo $info['isin']; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="issuer">Issuer</label></th>
-                        <td class="p4"><input type="text" name="issuer" id="issuer"
-                                value="<?php echo isset($issuer) ? $issuer : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="stockexchange">Stock Exchange</label></th>
-                        <td class="p4"><input type="text" name="stockexchange" id="stockexchange"
-                                value="<?php echo isset($stockexchange) ? $stockexchange : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="currency">Curreny</label></th>
-                        <td><select id="currency" name="currency">
-                                <option value="">Select Curreny...</option>
-                                <?php echo $currencyoptions = GetCurrenyOptions(); ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="denomination">Denomination</label></th>
-                        <td class="p4"><input type="text" name="denomination" id="denomination"
-                                value="<?php echo isset($denomination) ? $denomination : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="closingprice">Closing Price</label></th>
-                        <td class="p4"><input type="text" name="closingprice" id="closingprice"
-                                value="<?php echo isset($closingprice) ? $closingprice : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="priceclosingdate">Closing Price Date</label></th>
-                        <td class="p4"><input type="date" name="priceclosingdate" id="priceclosingdate"
-                                value="<?php echo isset($priceclosingdate) ? $priceclosingdate : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="issuedate">Issue Date</label></th>
-                        <td class="p4"><input type="date" name="issuedate" id="issuedate"
-                                value="<?php echo isset($issuedate) ? $issuedate : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="maturitydate">Maturity Date</label></th>
-                        <td class="p4"><input type="date" name="maturitydate" id="maturitydate"
-                                value="<?php echo isset($maturitydate) ? $maturitydate : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="coupon">Coupon</label></th>
-                        <td class="p4"><input type="text" name="coupon" id="coupon"
-                                value="<?php echo isset($coupon) ? $coupon : ''; ?>"></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"><label for="riskrating">Risk Rating</label></th>
-                        <td><select id="riskrating" name="riskrating">
-                                <option value="">Select Risk Level...</option>
-                                <?php echo $riskoptions = GetRiskOptions(); ?>
-                            </select></td>
-                    </tr>
-                    <tr>
-                        <th class="p3"></th>
-                        <td class="p4"><input type="submit" value="Edit Instrument" name="editinstrument" id="editinstrument"></td>
-                    </tr>
-                </table>
-            </form>
+                    <table id="preference">
+                        <tr>
+                            <th class="p3"><label for="datesubmitted"> Date Submitted </label></th>
+                            <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
+                                    value="<?php echo $info['datesubmitted']; ?>" readonly></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="shortname">Display Name</label></th>
+                            <td class="p4"><input type="text" name="shortname" id="shortname"
+                                    value="<?php echo $info['shortname']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="instrumentname">Instrument Name</label></th>
+                            <td class="p4"><input type="text" name="instrumentname" id="instrumentname"
+                                    value="<?php echo $info['instrumentname']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="assettype">Asset Type</label></th>
+                            <td><select id="assettype" name="assettype">
+                                    <option value="">Select an Asset Type...</option>
+                                    <?php echo $assetoptions = GetAssetOptions(); ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="industrysector">Industry Sector</label></th>
+                            <td><select id="industrysector" name="industrysector">
+                                    <option value="">Select an Industry Sector...</option>
+                                    <?php echo $industryoptions = GetIndustryOptions(); ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="country">Country</label></th>
+                            <td><select id="country" name="country">
+                                    <option value="">Select a Country...</option>
+                                    <?php echo $countryoptions = GetCountryOptions(); ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="ticker">Ticker</label></th>
+                            <td class="p4"><input type="text" name="ticker" id="ticker"
+                                    value="<?php echo $info['ticker']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="isin">ISIN</label></th>
+                            <td class="p4"><input type="text" name="isin" id="isin" value="<?php echo $info['isin']; ?>">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="issuer">Issuer</label></th>
+                            <td class="p4"><input type="text" name="issuer" id="issuer"
+                                    value="<?php echo $info['issuer']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="stockexchange">Stock Exchange</label></th>
+                            <td class="p4"><input type="text" name="stockexchange" id="stockexchange"
+                                    value="<?php echo $info['stockexchange']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="currency">Curreny</label></th>
+                            <td><select id="currency" name="currency">
+                                    <option value="">Select Curreny...</option>
+                                    <?php echo $currencyoptions = GetCurrenyOptions(); ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="denomination">Denomination</label></th>
+                            <td class="p4"><input type="number" name="denomination" id="denomination"
+                                    value="<?php echo $info['denomination']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="closingprice">Closing Price</label></th>
+                            <td class="p4"><input type="text" name="closingprice" id="closingprice"
+                                    value="<?php echo $info['closingprice']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="priceclosingdate">Closing Price Date</label></th>
+                            <td class="p4"><input type="date" name="priceclosingdate" id="priceclosingdate"
+                                    value="<?php echo $info['priceclosingdate']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="issuedate">Issue Date</label></th>
+                            <td class="p4"><input type="date" name="issuedate" id="issuedate"
+                                    value="<?php echo $info['issuedate']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="maturitydate">Maturity Date</label></th>
+                            <td class="p4"><input type="date" name="maturitydate" id="maturitydate"
+                                    value="<?php echo $info['maturitydate']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="coupon">Coupon</label></th>
+                            <td class="p4"><input type="number" name="coupon" id="coupon"
+                                    value="<?php echo $info['coupon']; ?>"></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"><label for="riskrating">Risk Rating</label></th>
+                            <td><select id="riskrating" name="riskrating">
+                                    <option value="">Select Risk Level...</option>
+                                    <?php echo $riskoptions = GetRiskOptions(); ?>
+                                </select></td>
+                        </tr>
+                        <tr>
+                            <th class="p3"></th>
+                            <td class="p4"><input type="submit" value="Edit Instrument" name="editinstrument"
+                                    id="editinstrument"></td>
+                        </tr>
+                    </table>
+                </form>
                 <?php
             }
             ?>
-
         </div>
     </div>
 </body>

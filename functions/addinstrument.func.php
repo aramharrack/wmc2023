@@ -21,29 +21,31 @@ function GetAdminID($username)
     return $adminid;
 }
 
-function InsertInstrument($shortname,
-                        $instrumentname,
-                        $assetid,
-                        $parmcode,
-                        $countrycode,
-                        $ticker,
-                        $isin,
-                        $issuer,
-                        $stockexchange,
-                        $currency,
-                        $denomination,
-                        $closingprice,
-                        $priceclosingdate,
-                        $issuedate,
-                        $maturitydate,
-                        $coupon,
-                        $riskrating,
-                        $staffid)
+function InsertInstrument(
+    $datesubmitted,
+    $shortname,
+    $instrumentname,
+    $assetid,
+    $parmcode,
+    $countrycode,
+    $ticker,
+    $isin,
+    $issuer,
+    $stockexchange,
+    $currency,
+    $denomination,
+    $closingprice,
+    $priceclosingdate,
+    $issuedate,
+    $maturitydate,
+    $coupon,
+    $riskrating,
+    $staffid)
 {
     include "db_connect.php";
 
     $sql = "insert into instruments
-            values(:instrumentid, :shortname, :instrumentname, :assetid, :parmcode, 
+            values(:datesubmitted, :instrumentid, :shortname, :instrumentname, :assetid, :parmcode, 
                      :countrycode, :ticker, :isin, :issuer, :stockexchange, :currency,
                      :denomination, :closingprice, :priceclosingdate, :issuedate,
                      :maturitydate, :coupon, :riskrating, :staffid)";
@@ -54,6 +56,7 @@ function InsertInstrument($shortname,
         $instrumentid = null;
         $query->execute(
             array(
+                ':datesubmitted' => $datesubmitted,
                 ':instrumentid' => $instrumentid,
                 ':shortname' => $shortname,
                 ':instrumentname' => $instrumentname,

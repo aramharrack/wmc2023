@@ -66,7 +66,7 @@
               <?php echo $info['regionname']; ?>
             </td>
             <td class="p1"><a href="index.php?page=idea&prefid=<?php
-            echo $info['prefid']; ?>">Extract Idea</a>
+            echo $info['prefid']; ?>">Extract Idea</a> |
               <a href="index.php?page=editpreference&prefid=<?php
               echo $info['prefid']; ?>">Edit</a> |
               <a href="index.php?page=deletepreference&prefid=<?php echo $info['prefid']; ?>"

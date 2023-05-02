@@ -84,8 +84,8 @@
                     </tr>
                     <tr>
                         <th class="p3"><label for="prefdetails"> Preference Details</label></th>
-                        <td class="p4"><textarea name="prefdetails" id="prefdetails">
-                            <?php echo isset($prefdetails) ? $prefdetails : ''; ?></textarea>
+                        <td class="p4"><textarea name="prefdetails" id="prefdetails"><?php 
+                            echo isset($prefdetails) ? $prefdetails : ''; ?></textarea>
                         </td>
                     </tr>
                     <tr>

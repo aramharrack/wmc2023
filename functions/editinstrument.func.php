@@ -1,5 +1,6 @@
 <?php
 function UpdateInstrument(
+    $datesubmitted,
     $instrumentid,
     $shortname,
     $instrumentname,
@@ -18,12 +19,13 @@ function UpdateInstrument(
     $maturitydate,
     $coupon,
     $riskrating,
-    $staffid
-) {
+    $staffid) 
+{
     include "db_connect.php";
 
     $sql = "update instruments
-            set shortname = :shortname
+            set datesubmitted = :datesubmitted
+                shortname = :shortname
                 instrumentname = :instrumentname
                 assetid = :assetid
                 parmcode = :parmcode
@@ -48,6 +50,7 @@ function UpdateInstrument(
     if ($query) {
         $query->execute(
             array(
+                ':datesubmitted' => $datesubmitted,
                 ':shortname' => $shortname,
                 ':instrumentname' => $instrumentname,
                 ':assetid' => $assetid,

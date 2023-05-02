@@ -21,7 +21,7 @@
             </div>
             <br>
             <ul class="breadcrumb">
-            <li><a href="index.php?page=adminmain">Main</a></li>
+                <li><a href="index.php?page=adminmain">Main</a></li>
                 <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
                 <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
@@ -29,6 +29,9 @@
             <h2>WMC Add Instrument</h2>
             <?php
             if (isset($_POST['addinstrument'])) {
+
+                if (!empty($_POST['datesubmitted']))
+                    $datesubmitted = $_POST['datesubmitted'];
 
                 if (!empty($_POST['shortname']))
                     $shortname = $_POST['shortname'];
@@ -122,6 +125,7 @@
                         echo $error . "<br>";
                 } else {
                     $response = InsertInstrument(
+                        $datesubmitted,
                         $shortname,
                         $instrumentname,
                         $assettype,
@@ -145,10 +149,16 @@
                         header('location:index.php?page=adminmain');
                 }
             }
+            $datesubmitted = date('Y-m-d');
             ?>
 
             <form method="post">
                 <table id="preference">
+                    <tr>
+                        <th class="p3"><label for="datesubmitted"> Date Submitted </label></th>
+                        <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
+                                value="<?php echo $datesubmitted; ?>"></td>
+                    </tr>
                     <tr>
                         <th class="p3"><label for="shortname">Display Name</label></th>
                         <td class="p4"><input type="text" name="shortname" id="shortname"
@@ -209,7 +219,7 @@
                     </tr>
                     <tr>
                         <th class="p3"><label for="denomination">Denomination</label></th>
-                        <td class="p4"><input type="text" name="denomination" id="denomination"
+                        <td class="p4"><input type="number" name="denomination" id="denomination"
                                 value="<?php echo isset($denomination) ? $denomination : ''; ?>"></td>
                     </tr>
                     <tr>
@@ -234,7 +244,7 @@
                     </tr>
                     <tr>
                         <th class="p3"><label for="coupon">Coupon</label></th>
-                        <td class="p4"><input type="text" name="coupon" id="coupon"
+                        <td class="p4"><input type="number" name="coupon" id="coupon"
                                 value="<?php echo isset($coupon) ? $coupon : ''; ?>"></td>
                     </tr>
                     <tr>
@@ -246,7 +256,8 @@
                     </tr>
                     <tr>
                         <th class="p3"></th>
-                        <td class="p4"><input type="submit" value="Add Instrument" name="addinstrument" id="addinstrument"></td>
+                        <td class="p4"><input type="submit" value="Add Instrument" name="addinstrument"
+                                id="addinstrument"></td>
                     </tr>
                 </table>
             </form>
