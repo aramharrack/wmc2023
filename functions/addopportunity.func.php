@@ -56,12 +56,12 @@ function GetAdminID($username)
     return $adminid;
 }
 
-function InsertOpportunity($oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $staffid)
+function InsertOpportunity($datesubmitted, $oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $staffid)
 {
     include "db_connect.php";
 
     $sql = "insert into opportunities
-            values(:oppid, :oppname, :instrumentid, :availabledate, :closingdate, :oppdetails, :staffid)";
+            values(:datesubmitted, :oppid, :oppname, :instrumentid, :availabledate, :closingdate, :oppdetails, :staffid)";
     //prepare the query
     $query = $db->prepare($sql);
     //execute the query
@@ -69,6 +69,7 @@ function InsertOpportunity($oppname, $instrumentid, $availabledate, $closingdate
         $oppid = null;
         $query->execute(
             array(
+                ':datesubmitted' => $datesubmitted,
                 ':oppid' => $oppid,
                 ':oppname' => $oppname,
                 ':instrumentid' => $instrumentid,

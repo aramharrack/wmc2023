@@ -70,7 +70,7 @@ function SearchOpportunities($txtoption) {
     include "db_connect.php";
     $oppinfos = array();
     
-    $sql = "select opportunities.oppid, opportunities.oppname,
+    $sql = "select opportunities.datesubmitted, opportunities.oppid, opportunities.oppname,
             instruments.instrumentname, instruments.issuer
             from opportunities, instruments
             where opportunities.instrumentid = instruments.instrumentid

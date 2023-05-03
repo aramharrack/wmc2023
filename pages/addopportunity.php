@@ -25,6 +25,7 @@
                 <li><a href="index.php?page=profile">Profile</a></li>
                 <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
                 <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
+                <li><a href="index.php?page=viewopportunity">View Opportunities</a></li>
             </ul>
             <h2>WMC Add Opportunity</h2>
 
@@ -57,6 +58,10 @@
                     }
                 } elseif (isset($_POST['addopportunity'])) {
                     $errors = array();
+
+                    if (!empty($_POST['datesubmitted']))
+                    $datesubmitted = $_POST['datesubmitted'];
+
                     if (!empty($_POST['lstoption'])) {
                         $instrumentid = $_POST['lstoption'];
                     } else {
@@ -84,7 +89,7 @@
                     }
                     if (empty($errors)) {
                         $adminid = GetAdminID($username);
-                        $response = InsertOpportunity($oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $adminid);
+                        $response = InsertOpportunity($datesubmitted, $oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $adminid);
                         if ($response) {
                             header('location:index.php?page=adminmain');
                             exit;
@@ -98,10 +103,16 @@
                     }
                 }
             }
+            $datesubmitted = date('Y-m-d');
             ?>
             <br>
             <form method="post" action="">
                 <table id="preference">
+                    <tr>
+                        <th class="p3"><label for="datesubmitted">Date Submitted </label></th>
+                        <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
+                                value="<?php echo $datesubmitted; ?>"></td>
+                    </tr>    
                     <tr>
                         <th class="p3"><label for="oppname">Opportunity Type</label></th>
                         <td class="p4"><input type="text" name="oppname" id="oppname"

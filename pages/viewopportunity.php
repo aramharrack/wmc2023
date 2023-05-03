@@ -31,19 +31,17 @@
             <h3>Main Menu</h3>
 
             <?php
-            $infos = GetInstruments();
+            $infos = GetOpportunities();
             ?>
             <table id="preference">
                 <tr>
                     <th align="left" class="pinstr">Date Submitted</th>
+                    <th align="left" class="pinstr">Opportunity ID</th>
+                    <th align="left" class="pinstr">Opportunity Name</th>
                     <th align="left" class="pinstr">Instrument Name</th>
-                    <th align="left" class="pinstr">Issuer</th>
-                    <th align="left" class="pinstr">Stock Exchange</th>
-                    <th align="left" class="pinstr">Currency</th>
-                    <th align="left" class="pinstr">Denomination</th>
-                    <th align="left" class="pinstr">Closing Price</th>
-                    <th align="left" class="pinstr">Price Closing Date</th>
-                    <th align="left" class="pinstr">Risk Rating</th>
+                    <th align="left" class="pinstr">Available Date</th>
+                    <th align="left" class="pinstr">Closing Date</th>
+                    <th align="left" class="pinstr">Opportunity Details</th>
                     <th align="left" class="pinstr">Admin</th>
                     <th align="left" class="pinstr"></th>
                 </tr>
@@ -52,17 +50,15 @@
                     ?>
                     <tr>
                         <td class="pinstr"><?php echo $info['datesubmitted']; ?></td>
-                        <td class="pinstr"><?php echo $info['shortname']; ?></td>
-                        <td class="pinstr"><?php echo $info['issuer']; ?></td>
-                        <td class="pinstr"><?php echo $info['stockexchange']; ?></td>
-                        <td class="pinstr"><?php echo $info['currency']; ?></td>
-                        <td class="pinstr"><?php echo $info['denomination']; ?></td>
-                        <td class="pinstr"><?php echo $info['closingprice']; ?></td>
-                        <td class="pinstr"><?php echo $info['priceclosingdate']; ?></td>
-                        <td class="pinstr"><?php echo $info['riskrating']; ?></td>
+                        <td class="pinstr"><?php echo $info['oppid']; ?></td>
+                        <td class="pinstr"><?php echo $info['oppname']; ?></td>
+                        <td class="pinstr"><?php echo $info['instrumentname']; ?></td>
+                        <td class="pinstr"><?php echo $info['availabledate']; ?></td>
+                        <td class="pinstr"><?php echo $info['closingdate']; ?></td>
+                        <td class="pinstr"><?php echo $info['oppdetails']; ?></td>
                         <td class="pinstr"><?php echo $info['fullname']; ?></td>
                         <td class="pinstr"><a href="index.php?page=editinstrument&instrumentid=<?php
-                            echo $info['instrumentid']; ?>">Edit</a>|
+                            echo $info['instrumentid']; ?>">Edit</a> |
                             <a href="index.php?page=deleteinstrument&instrumentid=<?php echo $info['instrumentid']; ?>"
                                 onclick="return confirm('Are you sure you want to delete this instrument?')">Delete</a>
                         </td>

@@ -102,6 +102,7 @@
                             <br>
                             <table id="opportunities">
                                 <tr>
+                                    <th align="left" class="p1">Date Submitted</th>
                                     <th align="left" class="p1">Opportunity ID</th>
                                     <th align="left" class="p1">Opportunity Name</th>
                                     <th align="left" class="p1">Instrument Name</th>
@@ -112,6 +113,7 @@
                                 foreach ($oppinfos as $oppinfo) {
                                     ?>
                                     <tr>
+                                        <td class="p1"><?php echo $oppinfo['datesubmitted']; ?></td>
                                         <td class="p1"><?php echo $oppinfo['oppid']; ?></td>
                                         <td class="p1"><?php echo $oppinfo['oppname']; ?></td>
                                         <td class="p1"><?php echo $oppinfo['instrumentname']; ?></td>
