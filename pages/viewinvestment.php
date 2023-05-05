@@ -21,28 +21,24 @@
          </div>
          <br>
          <ul class="breadcrumb">
-            <li><a href="index.php?page=adminmain">Main</a></li>
+            <li><a href="index.php?page=clientmain">Main</a></li>
             <li><a href="index.php?page=profile">Profile</a></li>
-            <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
-            <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
-            <li><a href="index.php?page=viewopportunity">View Opportunities</a></li>
+            <li><a href="index.php?page=addpreference">Add Preference</a></li>
+            <li><a href="index.php?page=viewinvestment">View Investments</a></li>
          </ul>
-         <h2>WMC Administrator</h2>
-         <h3>Main Menu</h3>
+         <h2>WMC Client Investments</h2>
 
          <?php
-         $infos = GetOpportunities();
+         $clientid = GetClientID($username);
+         $infos = GetInvestments($clientid);
          ?>
          <table id="preference">
             <tr>
                <th align="left" class="pinstr">Date Submitted</th>
-               <th align="left" class="pinstr">Opportunity ID</th>
-               <th align="left" class="pinstr">Opportunity Name</th>
-               <th align="left" class="pinstr">Instrument Name</th>
-               <th align="left" class="pinstr">Available Date</th>
-               <th align="left" class="pinstr">Closing Date</th>
-               <th align="left" class="pinstr">Opportunity Details</th>
-               <th align="left" class="pinstr">Admin</th>
+               <th align="left" class="pinstr">Investment ID</th>
+               <th align="left" class="pinstr">Instrument ID</th>
+               <th align="left" class="pinstr">Investment Details</th>
+               <th align="left" class="pinstr">Client</th>
                <th align="left" class="pinstr"></th>
             </tr>
             <?php
@@ -50,28 +46,19 @@
                ?>
                <tr>
                   <td class="pinstr">
-                     <?php echo $info['datesubmitted']; ?>
+                     <?php echo $info['investmentdate']; ?>
                   </td>
                   <td class="pinstr">
-                     <?php echo $info['oppid']; ?>
+                     <?php echo $info['investmentid']; ?>
                   </td>
                   <td class="pinstr">
-                     <?php echo $info['oppname']; ?>
+                     <?php echo $info['instrumentid']; ?>
                   </td>
                   <td class="pinstr">
-                     <?php echo $info['instrumentname']; ?>
+                     <?php echo $info['comments']; ?>
                   </td>
                   <td class="pinstr">
-                     <?php echo $info['availabledate']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['closingdate']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['oppdetails']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['fullname']; ?>
+                     <?php echo $info['clientid']; ?>
                   </td>
                   <td class="pinstr"><a href="index.php?page=editinstrument&instrumentid=<?php
                   echo $info['instrumentid']; ?>">Edit</a> |

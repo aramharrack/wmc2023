@@ -4,8 +4,8 @@ $user = 'root';
 $pass = '';
 
 try {
-  $db = new PDO($dsn, $user, $pass);
+   $db = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
-  die('Unable to connect to database. ' . $e);
+   die('Unable to connect to database. ' . $e);
 }
 ?>
