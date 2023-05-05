@@ -40,11 +40,13 @@
             echo "<strong>Region: </strong>" . $info['regionname'] . "<br>";
             echo "<br>";
          }
+         ?>
+         <a href="#" onclick="window.history.back()">Return to Main</a>
+         <br>
+         <?php
          $opportunities = GetOpportunities($prefid);
          if (!empty($opportunities)) {
             ?>
-            <a href="#" onclick="window.history.back()">Return to Main</a>
-            <br>
             <h2>Recommended Opportunities</h2>
             <table id="preference">
                <tr>

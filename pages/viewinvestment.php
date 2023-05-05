@@ -60,9 +60,7 @@
                   <td class="pinstr">
                      <?php echo $info['clientid']; ?>
                   </td>
-                  <td class="pinstr"><a href="index.php?page=editinstrument&instrumentid=<?php
-                  echo $info['instrumentid']; ?>">Edit</a> |
-                     <a href="index.php?page=deleteinstrument&instrumentid=<?php echo $info['instrumentid']; ?>"
+                  <td class="pinstr"><a href="index.php?page=deleteinstrument&instrumentid=<?php echo $info['instrumentid']; ?>"
                         onclick="return confirm('Are you sure you want to delete this instrument?')">Delete</a>
                   </td>
                </tr>

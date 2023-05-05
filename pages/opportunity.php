@@ -19,13 +19,14 @@
             ?>
             <a href="index.php?page=logout">Logout</a>
          </div>
-         <!--<br>
-            <ul class="breadcrumb">
-                <li><a href="index.php?page=adminmain">Main</a></li>
-                <li><a href="index.php?page=addproduct">Add Products</a></li>
-                <li><a href="index.php?page=opportunity">Add Opportunities</a></li>
-            </ul>-->
+         <br>
+         <ul class="breadcrumb">
+            <li><a href="index.php?page=rmmain">Main</a></li>
+            <li><a href="index.php?page=profile">Profile</a></li>
+         </ul>
          <h2>WMC Relationship Manager</h2>
+         
+         <button type="button" onclick="window.location.href='index.php?page=rmmain'">Return to Main</button>
 
          <?php
          if (!empty($_GET['prefid']) && !empty($_GET['clientname'])) {
@@ -40,7 +41,7 @@
                echo "Email: " . $info['emailaddress'] . "<br>";
                echo "<br>";
             }
-            $infos = GetPreferences($info['id'], $prefid); // pass the prefid to GetPreferences
+            $infos = GetPreferences($info['id'], $prefid);
          
             if (isset($_POST['btnidea'])) {
                $lstopp = $_POST['lstopp'];
@@ -54,51 +55,35 @@
                   echo "Select an opportunity!";
                }
             }
+            foreach ($infos as $info) {
+               echo "<br>";
+               echo "<strong>Preference Details</strong><br>";
+               echo "ID: ".$info['prefid']."<br>";
+               echo "Date Submitted: ".$info['datesubmitted']."<br>";
+               echo "Asset Type: ".$info['assetdesc']."<br>";
+               echo "Industry Sector: ".$info['sectordesc']."<br>";
+               echo "Country: ".$info['countryname']."<br>";
+               echo "Region: ".$info['regionname']."<br>";
+               echo "Preference Details: ".$info['prefdetails']."<br>";
+               echo "<br>";
+            }
             ?>
-            <button type="button" onclick="window.location.href='index.php?page=rmmain'">Return to Main</button>
-            <table id="preference">
-               <tr>
-                  <th align="left" class="p1">Preference ID</th>
-                  <th align="left" class="p1">Date Submitted</th>
-                  <th align="left" class="p1">Preference Details</th>
-                  <th align="left" class="p1">
-                     <form action="" method="post">
-                        <select name="lstopp" id="lstopp">
-                           <option selected disabled>Match Preference</option>
-                           <?php
-                           $oppinfos = GetIdeas();
-                           foreach ($oppinfos as $oppinfo) {
-                              ?>
-                              <option value="<?php echo $oppinfo['oppid']; ?>"><?php
-                                 echo $oppinfo['oppname'] . " - " . $oppinfo['shortname']; ?></option>
-                              <?php
-                           }
-                           ?>
-                        </select>
-                        <input type="submit" id="btnidea" name="btnidea" value="Assign Idea">
-                     </form>
-                  </th>
-               </tr>
-               <?php
-               foreach ($infos as $info) {
-                  ?>
-                  <tr>
-                     <td class="p1">
-                        <?php echo $info['prefid']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $info['datesubmitted']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $info['prefdetails']; ?>
-                     </td>
-                     <td class="p1"></td>
-                  </tr>
-                  <?php
-               }
-               ?>
-            </table>
-            <?php
+            <form action="" method="post">
+               <select name="lstopp" id="lstopp">
+                  <option selected disabled>Match Preference</option>
+                     <?php
+                     $oppinfos = GetIdeas();
+                     foreach ($oppinfos as $oppinfo) {
+                     ?>
+                        <option value="<?php echo $oppinfo['oppid']; ?>"><?php
+                           echo $oppinfo['oppname'] . " - " . $oppinfo['shortname']; ?></option>
+                     <?php
+                     }
+                     ?>
+               </select>
+               <input type="submit" id="btnidea" name="btnidea" value="Assign Idea">
+            </form>
+         <?php
          }
          ?>
       </div>

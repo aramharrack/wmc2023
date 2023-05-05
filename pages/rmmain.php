@@ -25,6 +25,7 @@
          <ul class="breadcrumb">
             <li><a href="index.php?page=rmmain">Main</a></li>
             <li><a href="index.php?page=profile">Profile</a></li>
+            <li><a href="index.php?page=viewrecommendation">View Recommendations</a></li>
          </ul>
          <h2>WMC Relationship Manager</h2>
          <h3>Main Menu</h3>
@@ -65,23 +66,25 @@
                            <tr>
                               <th align="left" class="p1">Preference ID</th>
                               <th align="left" class="p1">Date Submitted</th>
-                              <th align="left" class="p1">Preference Details</th>
-                              <th align="left" class="p1"></th>
+                              <th align="left" class="p1">Asset Type</th>
+                              <th align="left" class="p1">Industry Sector</th>
+                              <th align="left" class="p1">Country</th>
+                              <th align="left" class="p1">Region</th>
+                              <th align="left" class="p2">Preference Details</th>
+                              <th align="left" class="p3"></th>
                            </tr>
                            <?php
                            foreach ($prefinfos as $prefinfo) {
                               ?>
                               <tr>
-                                 <td class="p1">
-                                    <?php echo $prefinfo['prefid']; ?>
-                                 </td>
-                                 <td class="p1">
-                                    <?php echo $prefinfo['datesubmitted']; ?>
-                                 </td>
-                                 <td class="p1">
-                                    <?php echo $prefinfo['prefdetails']; ?>
-                                 </td>
-                                 <td class="p1"><a href="index.php?page=opportunity&prefid=<?php echo
+                                 <td class="p1"><?php echo $prefinfo['prefid']; ?></td>
+                                 <td class="p1"><?php echo $prefinfo['datesubmitted']; ?></td>
+                                 <td class="p1"><?php echo $prefinfo['assetdesc']; ?></td>
+                                 <td class="p1"><?php echo $prefinfo['sectordesc']; ?></td>
+                                 <td class="p1"><?php echo $prefinfo['countryname']; ?></td>
+                                 <td class="p1"><?php echo $prefinfo['regionname']; ?></td>
+                                 <td class="p2"><?php echo $prefinfo['prefdetails']; ?></td>
+                                 <td class="p3"><a href="index.php?page=opportunity&prefid=<?php echo
                                     $prefinfo['prefid']; ?>&clientname=<?php echo
                                      $clientinfo['fullname']; ?>">Find Opportunity</a></td>
                               </tr>

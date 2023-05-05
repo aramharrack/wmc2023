@@ -78,46 +78,46 @@
          <form method="post" action="">
             <table id="preference">
                <tr>
-                  <th class="p3"><label for="datesubmitted"> Date Submitted </label></th>
+                  <th class="p4"><label for="datesubmitted"> Date Submitted </label></th>
                   <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
                         value="<?php echo $datesubmitted; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="prefdetails"> Preference Details</label></th>
+                  <th class="p4"><label for="prefdetails"> Preference Details</label></th>
                   <td class="p4"><textarea name="prefdetails" id="prefdetails"><?php
                   echo isset($prefdetails) ? $prefdetails : ''; ?></textarea>
                   </td>
                </tr>
                <tr>
-                  <th class="p3"><label for="assettype"> Asset Type Preference</label></th>
+                  <th class="p4"><label for="assettype"> Asset Type Preference</label></th>
                   <td><select id="assettype" name="assettype">
                         <option value="">Select an Asset Type...</option>
                         <?php echo $assetoptions = GetAssetOptions(); ?>
                      </select></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="industrysector"> Industry Sector Preference</label></th>
+                  <th class="p4"><label for="industrysector"> Industry Sector Preference</label></th>
                   <td><select id="industrysector" name="industrysector">
                         <option value="">Select an Industry Sector...</option>
                         <?php echo $industryoptions = GetIndustryOptions(); ?>
                      </select></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="country"> Country Preference</label></th>
+                  <th class="p4"><label for="country"> Country Preference</label></th>
                   <td><select id="country" name="country">
                         <option value="">Select a Country...</option>
                         <?php echo $countryoptions = GetCountryOptions(); ?>
                      </select></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="region"> Region Preference</label></th>
+                  <th class="p4"><label for="region"> Region Preference</label></th>
                   <td><select id="region" name="region">
                         <option value="">Select a Region...</option>
                         <?php echo $regionoptions = GetRegionOptions(); ?>
                      </select></td>
                </tr>
                <tr>
-                  <th class="p3"></th>
+                  <th class="p4"></th>
                   <td class="p4"><input type="submit" value="Add Preferences" name="addpreference" id="addpreference">
                   </td>
                </tr>

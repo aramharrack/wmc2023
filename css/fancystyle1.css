@@ -1,14 +1,10 @@
-body {
-	background-color: whitesmoke;
-}
-
 .box {
 	border: 5px double #000;
 	border-radius: 10px;
 	padding: 10px;
 	margin-top: 5px;
 	position: relative;
-	background: lightgray;
+	background: #b3f3ff;
 	width: 90%;
 	z-index: 5;
 	/* It specifies the order of an element */
@@ -67,22 +63,22 @@ input {
 
 input[type='submit'] {
 	width: 255px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 input[type='submit']#addpreference {
 	width: 263px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 input[type='submit']#btnidea {
 	width: 125px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 input[type='submit']#register {
 	width: 255px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 input[type='text'],
@@ -90,33 +86,33 @@ input[type='date'],
 input[type='email'],
 input[type='password'] {
 	width: 255px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 input[type='text']#txtoption,
 input[type='submit']#btnoption {
 	width: 185px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 select {
 	width: 260px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 select#classicalusertype {
 	width: 180px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 select#lstoption {
 	width: 175px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 select#lstopp {
 	width: 125px;
-	background-color: #A9A9A9;
+	background-color: #abcdef;
 }
 
 table {
@@ -132,8 +128,7 @@ table {
 	z-index: 10;
 }
 
-table#preference,
-table#instrument {
+table#preference {
 	background-color: #fff;
 	border: 3px double #999;
 	border-radius: 5px;
@@ -153,20 +148,19 @@ th {
 
 th.p1,
 td.p1 {
-	width: 12%;
+	width: 15%;
 }
 
-th.p2,
-td.p2 {
-	width: 24%;
+td.p2,
+th.p2 {
+	width: 55%;
 }
 
-th.p3,
-td.p3 {
-	width: 16%;
+th.p1 a {
+	text-decoration: none;
 }
 
-th.p4 {
+th.p3 {
 	width: 30%;
 	text-align: left;
 }
@@ -175,17 +169,12 @@ td.p4 {
 	width: 70%;
 }
 
-th.p5,
-td.p5 {
-	width: 9%;
-}
-
-th.p6,
-td.p6 {
-	width: 11%;
+th.pinstr,
+td.pinstr {
+	width: 10%;
 }
 
 textarea {
-	width: 255px;
+	width: 25%;
 	height: 100px;
 }

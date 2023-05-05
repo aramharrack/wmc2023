@@ -24,10 +24,17 @@ function GetClientInfo($clientname)
 function GetPreferences($clientid, $prefid = null)
 {
    include "db_connect.php";
-
-   $sql = "select * 
-            from preferences 
-            where clientid = :clientid";
+   
+   $sql = "select preferences.prefid, preferences.datesubmitted, preferences.prefdetails, 
+            assettypes.assetdesc, industrysectors.sectordesc,
+            countries.countryname, regions.regionname
+         from preferences, clients, assettypes, industrysectors, countries, regions 
+         where preferences.clientid = :clientid
+         and assettypes.assetid = preferences.assetid
+         and industrysectors.parmcode = preferences.parmcode
+         and countries.countrycode = preferences.countrycode
+         and regions.regionid = preferences.regionid
+         and clients.id = preferences.clientid";
 
    if ($prefid) {
       $sql .= " and prefid = :prefid";
@@ -66,7 +73,7 @@ function GetIdeas()
 function AssignOpportunity($prefid, $oppid)
 {
    include "db_connect.php";
-   $status = "assigned";
+   $status = "Assigned";
 
    /*insert to db */
    $sql = "insert into preferenceopportunities

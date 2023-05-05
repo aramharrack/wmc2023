@@ -20,7 +20,8 @@ function UpdateInstrument(
    $coupon,
    $riskrating,
    $staffid
-) {
+) 
+{
    include "db_connect.php";
 
    $sql = "update instruments
