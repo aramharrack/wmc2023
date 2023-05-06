@@ -69,7 +69,7 @@ function GetAssetOptions()
 function GetIndustryOptions()
 {
    include "db_connect.php";
-   $sql = "select parmcode, sectordesc from industrysectors order by parmcode asc";
+   $sql = "select parmcode, sectordesc from industrysectors";
    $query = $db->prepare($sql);
    $query->execute();
    $options = '';

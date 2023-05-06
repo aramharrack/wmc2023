@@ -23,25 +23,25 @@
          <ul class="breadcrumb">
             <li><a href="index.php?page=rmmain">Main</a></li>
             <li><a href="index.php?page=profile">Profile</a></li>
+            <li><a href="index.php?page=viewrecommendation">View Recommendations</a></li>
          </ul>
          <h2>WMC Relationship Manager</h2>
-         
          <button type="button" onclick="window.location.href='index.php?page=rmmain'">Return to Main</button>
-
+         <br>
          <?php
          if (!empty($_GET['prefid']) && !empty($_GET['clientname'])) {
             $prefid = $_GET['prefid'];
             $clientname = $_GET['clientname'];
-            $clientinfo = GetClientInfo($clientname);
-            foreach ($clientinfo as $info) {
+            $clientinfos = GetClientInfo($clientname);
+            foreach ($clientinfos as $clientinfo) {
                echo "<br>";
                echo "<strong>Client Profile</strong><br>";
-               echo "ID: " . $info['id'] . "<br>";
-               echo "Name: " . $info['fullname'] . "<br>";
-               echo "Email: " . $info['emailaddress'] . "<br>";
+               echo "ID: " . $clientinfo['id'] . "<br>";
+               echo "Name: " . $clientinfo['fullname'] . "<br>";
+               echo "Email: " . $clientinfo['emailaddress'] . "<br>";
                echo "<br>";
             }
-            $infos = GetPreferences($info['id'], $prefid);
+            $prefinfos = GetPreferences($clientinfo['id'], $prefid);
          
             if (isset($_POST['btnidea'])) {
                $lstopp = $_POST['lstopp'];
@@ -55,16 +55,16 @@
                   echo "Select an opportunity!";
                }
             }
-            foreach ($infos as $info) {
+            foreach ($prefinfos as $prefinfo) {
                echo "<br>";
                echo "<strong>Preference Details</strong><br>";
-               echo "ID: ".$info['prefid']."<br>";
-               echo "Date Submitted: ".$info['datesubmitted']."<br>";
-               echo "Asset Type: ".$info['assetdesc']."<br>";
-               echo "Industry Sector: ".$info['sectordesc']."<br>";
-               echo "Country: ".$info['countryname']."<br>";
-               echo "Region: ".$info['regionname']."<br>";
-               echo "Preference Details: ".$info['prefdetails']."<br>";
+               echo "ID: ".$prefinfo['prefid']."<br>";
+               echo "Date Submitted: ".$prefinfo['datesubmitted']."<br>";
+               echo "Asset Type: ".$prefinfo['assetdesc']."<br>";
+               echo "Industry Sector: ".$prefinfo['sectordesc']."<br>";
+               echo "Country: ".$prefinfo['countryname']."<br>";
+               echo "Region: ".$prefinfo['regionname']."<br>";
+               echo "Preference Details: ".$prefinfo['prefdetails']."<br>";
                echo "<br>";
             }
             ?>

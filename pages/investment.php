@@ -42,6 +42,8 @@
             echo "<br>";
          }
          ?>
+         <a href="#" onclick="window.history.back()">Return to Recommended Opportunities</a>
+         <br>
          <h2>WMC Client Investment</h2>
 
          <?php

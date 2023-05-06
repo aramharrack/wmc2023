@@ -28,11 +28,6 @@
             else
                $errors[] = "Enter username!";
 
-            //check if username exists
-            if (CheckUsernameExists($username)) {
-               $errors[] = "Username already exists. Please choose a different username.";
-            }
-
             if (!empty($_POST['password']))
                $password = $_POST['password'];
             else
@@ -52,15 +47,20 @@
                foreach ($errors as $error)
                   echo $error . "<br>";
             } else {
+               //check if username exists
+               if (CheckUsernameExists($username))
+                  $errors[] = "Username already exists. Please choose a different username.";
+
                $passwordErrors = CheckPassword($password, $confirmPassword);
                if (!empty($passwordErrors))
                   foreach ($passwordErrors as $error)
                      echo $error . '<br>';
-               else
+               else {
                   // password is valid
                   $response = InsertRegistration($fullname, $emailaddress, $username, $password, $classicalusertype);
-               if ($response)
-                  header('location:index.php?page=login');
+                  if ($response)
+                     header('location:index.php?page=login');
+               }
             }
          }
          ?>

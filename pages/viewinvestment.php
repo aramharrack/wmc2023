@@ -45,23 +45,13 @@
             foreach ($infos as $info) {
                ?>
                <tr>
-                  <td class="pinstr">
-                     <?php echo $info['investmentdate']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['investmentid']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['instrumentid']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['comments']; ?>
-                  </td>
-                  <td class="pinstr">
-                     <?php echo $info['clientid']; ?>
-                  </td>
-                  <td class="pinstr"><a href="index.php?page=deleteinstrument&instrumentid=<?php echo $info['instrumentid']; ?>"
-                        onclick="return confirm('Are you sure you want to delete this instrument?')">Delete</a>
+                  <td class="pinstr"><?php echo $info['investmentdate']; ?></td>
+                  <td class="pinstr"><?php echo $info['investmentid']; ?></td>
+                  <td class="pinstr"><?php echo $info['instrumentid']; ?></td>
+                  <td class="pinstr"><?php echo $info['comments']; ?></td>
+                  <td class="pinstr"><?php echo $info['clientid']; ?></td>
+                  <td class="pinstr"><a href="index.php?page=deleteinvestment&investmentid=<?php echo $info['investmentid']; ?>"
+                     onclick="return confirm('Are you sure you want to delete this investment?')">Delete</a>
                   </td>
                </tr>
                <?php

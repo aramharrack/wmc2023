@@ -37,7 +37,7 @@
             </select>
             <input type="text" name="txtoption" id="txtoption" placeholder="Enter search criteria"
                value="<?php echo isset($clientname) ? $clientname : ''; ?>">
-            <input type="submit" name="btnoption" id="btnoption" value="Enter Query">
+            <input type="submit" name="btnoption" id="btnoption" value="Search">
          </form>
 
          <?php
@@ -60,43 +60,47 @@
                         echo "<br>";
                      }
                      $prefinfos = GetPreferences($clientinfo['id']);
-                     ?>
-                     <form method="post" action="index.php?page=opportunity">
-                        <table id="preference">
-                           <tr>
-                              <th align="left" class="p1">Preference ID</th>
-                              <th align="left" class="p1">Date Submitted</th>
-                              <th align="left" class="p1">Asset Type</th>
-                              <th align="left" class="p1">Industry Sector</th>
-                              <th align="left" class="p1">Country</th>
-                              <th align="left" class="p1">Region</th>
-                              <th align="left" class="p2">Preference Details</th>
-                              <th align="left" class="p3"></th>
-                           </tr>
-                           <?php
-                           foreach ($prefinfos as $prefinfo) {
-                              ?>
+                     //var_dump($prefinfos);
+                     if(!empty($prefinfos)){
+                        ?>
+                        <form method="post" action="index.php?page=opportunity">
+                           <table id="preference">
                               <tr>
-                                 <td class="p1"><?php echo $prefinfo['prefid']; ?></td>
-                                 <td class="p1"><?php echo $prefinfo['datesubmitted']; ?></td>
-                                 <td class="p1"><?php echo $prefinfo['assetdesc']; ?></td>
-                                 <td class="p1"><?php echo $prefinfo['sectordesc']; ?></td>
-                                 <td class="p1"><?php echo $prefinfo['countryname']; ?></td>
-                                 <td class="p1"><?php echo $prefinfo['regionname']; ?></td>
-                                 <td class="p2"><?php echo $prefinfo['prefdetails']; ?></td>
-                                 <td class="p3"><a href="index.php?page=opportunity&prefid=<?php echo
-                                    $prefinfo['prefid']; ?>&clientname=<?php echo
-                                     $clientinfo['fullname']; ?>">Find Opportunity</a></td>
+                                 <th align="left" class="p1">Preference ID</th>
+                                 <th align="left" class="p1">Date Submitted</th>
+                                 <th align="left" class="p1">Asset Type</th>
+                                 <th align="left" class="p1">Industry Sector</th>
+                                 <th align="left" class="p1">Country</th>
+                                 <th align="left" class="p1">Region</th>
+                                 <th align="left" class="p2">Preference Details</th>
+                                 <th align="left" class="p3"></th>
                               </tr>
                               <?php
-                           }
-                           ?>
-                        </table>
-                     </form>
-                     <?php
-                  } else {
+                              foreach ($prefinfos as $prefinfo) {
+                                 ?>
+                                 <tr>
+                                    <td class="p1"><?php echo $prefinfo['prefid']; ?></td>
+                                    <td class="p1"><?php echo $prefinfo['datesubmitted']; ?></td>
+                                    <td class="p1"><?php echo $prefinfo['assetdesc']; ?></td>
+                                    <td class="p1"><?php echo $prefinfo['sectordesc']; ?></td>
+                                    <td class="p1"><?php echo $prefinfo['countryname']; ?></td>
+                                    <td class="p1"><?php echo $prefinfo['regionname']; ?></td>
+                                    <td class="p2"><?php echo $prefinfo['prefdetails']; ?></td>
+                                    <td class="p3"><a href="index.php?page=opportunity&prefid=<?php echo
+                                       $prefinfo['prefid']; ?>&clientname=<?php echo
+                                        $clientinfo['fullname']; ?>">Find Opportunity</a></td>
+                                 </tr>
+                                 <?php
+                              }
+                              ?>
+                           </table>
+                        </form>
+                        <?php
+                     }else{
+                        echo "No preferences set for this client as yet!";
+                     }
+                  } else 
                      echo "<br>Client not found!";
-                  }
                } else if ($option === 'ideas') {
                   $oppinfos = SearchOpportunities($txtoption);
 
@@ -139,16 +143,13 @@
                            ?>
                         </table>
                      <?php
-                  } else {
+                  } else 
                      echo "<br>No investment opportunities found!";
-                  }
                }
-            } else {
+            } else 
                echo "<br>Enter search criteria!";
-            }
-         } else {
+         } else 
             echo "<br>Select an option!";
-         }
          ?>
       </div>
    </div>
