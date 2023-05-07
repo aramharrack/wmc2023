@@ -25,6 +25,7 @@
             <li><a href="index.php?page=profile">Profile</a></li>
             <li><a href="index.php?page=addinstrument">Add Instrument</a></li>
             <li><a href="index.php?page=addopportunity">Add Opportunity</a></li>
+            <li><a href="index.php?page=viewopportunity">View Opportunities</a></li>
          </ul>
          <h2>WMC Edit Instrument</h2>
          <?php
@@ -34,7 +35,7 @@
          }
          ?>
          <?php
-         if (isset($_POST['addinstrument'])) {
+         if (isset($_POST['editinstrument'])) {
             $datesubmitted = $_POST['datesubmitted'];
             if (!empty($_POST['shortname']))
                $shortname = $_POST['shortname'];

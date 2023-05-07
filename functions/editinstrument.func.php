@@ -20,34 +20,35 @@ function UpdateInstrument(
    $coupon,
    $riskrating,
    $staffid
-) 
-{
+) {
    include "db_connect.php";
 
    $sql = "update instruments
-            set datesubmitted = :datesubmitted
-               shortname = :shortname
-               instrumentname = :instrumentname
-               assetid = :assetid
-               parmcode = :parmcode
-               countrycode = :countrycode
-               ticker = :ticker
-               isin = :isin
-               issuer = :issuer
-               stockexchange = :stockexchange
-               currency = :currency
-               denomination = :denomination
-               closingprice = :closingprice
-               priceclosingdate = :priceclosingdate
-               issuedate = :issuedate
-               maturitydate = :maturitydate
-               coupon = :coupon
-               riskrating = :riskrating
+            set datesubmitted = :datesubmitted,
+               shortname = :shortname,
+               instrumentname = :instrumentname,
+               assetid = :assetid,
+               parmcode = :parmcode,
+               countrycode = :countrycode,
+               ticker = :ticker,
+               isin = :isin,
+               issuer = :issuer,
+               stockexchange = :stockexchange,
+               currency = :currency,
+               denomination = :denomination,
+               closingprice = :closingprice,
+               priceclosingdate = :priceclosingdate,
+               issuedate = :issuedate,
+               maturitydate = :maturitydate,
+               coupon = :coupon,
+               riskrating = :riskrating,
                staffid = :staffid
             where instrumentid = :instrumentid";
-   //prepare the query
+
+   // Prepare the query
    $query = $db->prepare($sql);
-   //execute the query
+
+   // Execute the query
    if ($query) {
       $query->execute(
          array(
@@ -73,13 +74,17 @@ function UpdateInstrument(
             ':instrumentid' => $instrumentid
          )
       );
-      if (!$query)
+
+      if (!$query) {
          echo "Something went wrong. " . print_r($db->errorInfo());
-      else
+      } else {
          return $query;
-   } else
+      }
+   } else {
       echo "Something went wrong." . print_r($db->errorInfo());
+   }
 }
+
 
 function GetAdminID($username)
 {
