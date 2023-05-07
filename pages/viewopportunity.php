@@ -35,48 +35,44 @@
          ?>
          <table id="preference">
             <tr>
-               <th align="left" class="pinstr">Date Submitted</th>
-               <th align="left" class="pinstr">Opportunity ID</th>
-               <th align="left" class="pinstr">Opportunity Name</th>
-               <th align="left" class="pinstr">Instrument Name</th>
-               <th align="left" class="pinstr">Available Date</th>
-               <th align="left" class="pinstr">Closing Date</th>
-               <th align="left" class="pinstr">Opportunity Details</th>
-               <th align="left" class="pinstr">Admin</th>
-               <th align="left" class="pinstr"></th>
+               <th align="left" class="p6">Date Submitted</th>
+               <th align="left" class="p6">Opportunity Name</th>
+               <th align="left" class="p6">Instrument Name</th>
+               <th align="left" class="p6">Available Date</th>
+               <th align="left" class="p6">Closing Date</th>
+               <th align="left" class="p7">Opportunity Details</th>
+               <th align="left" class="p6">Admin</th>
+               <th align="left" class="p6"></th>
             </tr>
             <?php
             foreach ($infos as $info) {
                ?>
                <tr>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['datesubmitted']; ?>
                   </td>
-                  <td class="pinstr">
-                     <?php echo $info['oppid']; ?>
-                  </td>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['oppname']; ?>
                   </td>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['instrumentname']; ?>
                   </td>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['availabledate']; ?>
                   </td>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['closingdate']; ?>
                   </td>
-                  <td class="pinstr">
+                  <td class="p7">
                      <?php echo $info['oppdetails']; ?>
                   </td>
-                  <td class="pinstr">
+                  <td class="p6">
                      <?php echo $info['fullname']; ?>
                   </td>
-                  <td class="pinstr"><a href="index.php?page=editinstrument&instrumentid=<?php
-                  echo $info['instrumentid']; ?>">Edit</a> |
-                     <a href="index.php?page=deleteinstrument&instrumentid=<?php echo $info['instrumentid']; ?>"
-                        onclick="return confirm('Are you sure you want to delete this instrument?')">Delete</a>
+                  <td class="p6"><a href="index.php?page=editopportunity&oppid=<?php
+                  echo $info['oppid']; ?>">Edit</a> |
+                     <a href="index.php?page=deleteopportunity&oppid=<?php echo $info['oppid']; ?>"
+                        onclick="return confirm('Are you sure you want to delete this opportunity?')">Delete</a>
                   </td>
                </tr>
                <?php

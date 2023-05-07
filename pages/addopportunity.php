@@ -62,45 +62,42 @@
                if (!empty($_POST['datesubmitted']))
                   $datesubmitted = $_POST['datesubmitted'];
 
-               if (!empty($_POST['lstoption'])) {
+               if (!empty($_POST['lstoption']))
                   $instrumentid = $_POST['lstoption'];
-               } else {
+               else
                   $errors[] = "Please select an instrument!";
-               }
-               if (!empty($_POST['oppname'])) {
+
+               if (!empty($_POST['oppname']))
                   $oppname = $_POST['oppname'];
-               } else {
+               else
                   $errors[] = "Enter Opportunity Type!";
-               }
-               if (!empty($_POST['availabledate'])) {
+
+               if (!empty($_POST['availabledate']))
                   $availabledate = $_POST['availabledate'];
-               } else {
+               else
                   $errors[] = "Enter Available Date!";
-               }
-               if (!empty($_POST['closingdate'])) {
+
+               if (!empty($_POST['closingdate']))
                   $closingdate = $_POST['closingdate'];
-               } else {
+               else
                   $errors[] = "Enter Closing Date!";
-               }
-               if (!empty($_POST['oppdetails'])) {
+
+               if (!empty($_POST['oppdetails']))
                   $oppdetails = $_POST['oppdetails'];
-               } else {
+               else
                   $errors[] = "Enter Opportunity Details!";
-               }
+
                if (empty($errors)) {
                   $adminid = GetAdminID($username);
                   $response = InsertOpportunity($datesubmitted, $oppname, $instrumentid, $availabledate, $closingdate, $oppdetails, $adminid);
                   if ($response) {
                      header('location:index.php?page=adminmain');
                      exit;
-                  } else {
+                  } else
                      echo "Failed to insert opportunity.";
-                  }
-               } else {
-                  foreach ($errors as $error) {
+               } else
+                  foreach ($errors as $error)
                      echo $error . "<br>";
-                  }
-               }
             }
          }
          $datesubmitted = date('Y-m-d');
@@ -109,33 +106,33 @@
          <form method="post" action="">
             <table id="preference">
                <tr>
-                  <th class="p3"><label for="datesubmitted">Date Submitted </label></th>
+                  <th class="p4"><label for="datesubmitted">Date Submitted </label></th>
                   <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
                         value="<?php echo $datesubmitted; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="oppname">Opportunity Type</label></th>
+                  <th class="p4"><label for="oppname">Opportunity Type</label></th>
                   <td class="p4"><input type="text" name="oppname" id="oppname"
                         value="<?php echo isset($oppname) ? $oppname : ''; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="availabledate">Available Date</label></th>
+                  <th class="p4"><label for="availabledate">Available Date</label></th>
                   <td class="p4"><input type="date" name="availabledate" id="availabledate"
                         value="<?php echo isset($availabledate) ? $availabledate : ''; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="closingdate">Closing Date</label></th>
+                  <th class="p4"><label for="closingdate">Closing Date</label></th>
                   <td class="p4"><input type="date" name="closingdate" id="closingdate"
                         value="<?php echo isset($closingdate) ? $closingdate : ''; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="oppdetails">Opportunity Details</label></th>
+                  <th class="p4"><label for="oppdetails">Opportunity Details</label></th>
                   <td class="p4"><textarea name="oppdetails"
                         id="oppdetails"><?php echo isset($oppdetails) ? $oppdetails : ''; ?></textarea>
                   </td>
                </tr>
                <tr>
-                  <th class="p3"></th>
+                  <th class="p4"></th>
                   <td class="p4">
                      <input type="submit" value="Add Opportunity" name="addopportunity" id="addopportunity">
                      <input type="hidden" name="lstoption"

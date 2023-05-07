@@ -185,6 +185,12 @@ td.p6 {
 	width: 11%;
 }
 
+th.p7,
+td.p7 {
+	width: 23%;
+}
+
+
 textarea {
 	width: 255px;
 	height: 100px;
