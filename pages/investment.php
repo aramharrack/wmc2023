@@ -36,6 +36,12 @@
             echo "<strong>Opportunity Name: </strong>" . $info['oppname'] . "<br>";
             echo "<strong>Instrument Name: </strong>" . $info['shortname'] . "<br>";
             echo "<strong>Instrument Issuer: </strong>" . $info['issuer'] . "<br>";
+            
+            echo "<strong>Instrument Asset Type: </strong>" . $info['assetdesc'] . "<br>";
+            echo "<strong>Instrument Industry Sector: </strong>" . $info['sectordesc'] . "<br>";
+            echo "<strong>Instrument Country: </strong>" . $info['countryname'] . "<br>";
+            echo "<strong>Instrument Region: </strong>" . $info['regionname'] . "<br>";
+
             echo "<strong>Instrument Currency: </strong>" . $info['currency'] . "<br>";
             echo "<strong>Instrument Closing Price: </strong>" . $info['closingprice'] . "<br>";
             echo "<strong>Instrument Price closing Date: </strong>" . $info['priceclosingdate'] . "<br>";
@@ -77,18 +83,18 @@
          <form method="post" action="">
             <table id="preference">
                <tr>
-                  <th class="p3"><label for="datesubmitted"> Date Submitted </label></th>
+                  <th class="p4"><label for="datesubmitted"> Date Submitted </label></th>
                   <td class="p4"><input type="text" name="datesubmitted" id="datesubmitted"
                         value="<?php echo $datesubmitted; ?>"></td>
                </tr>
                <tr>
-                  <th class="p3"><label for="comments"> Investment Details</label></th>
+                  <th class="p4"><label for="comments"> Investment Details</label></th>
                   <td class="p4"><textarea name="comments" id="comments"><?php
                   echo isset($comments) ? $comments : ''; ?></textarea>
                   </td>
                </tr>
                <tr>
-                  <th class="p3"></th>
+                  <th class="p4"></th>
                   <td class="p4"><input type="submit" value="Invest" name="invest" id="invest"></td>
                </tr>
             </table>

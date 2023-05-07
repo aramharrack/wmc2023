@@ -50,7 +50,12 @@
                      echo "Instrument Name: " . $instrumentinfo['instrumentname'] . "<br>";
                      echo "Ticker: " . $instrumentinfo['ticker'] . "<br>";
                      echo "Issuer: " . $instrumentinfo['issuer'] . "<br>";
+                     echo "Asset Type: " . $instrumentinfo['assetdesc'] . "<br>";
+                     echo "Industry Sector: " . $instrumentinfo['sectordesc'] . "<br>";
+                     echo "Country: " . $instrumentinfo['countryname'] . "<br>";
+                     echo "Region: " . $instrumentinfo['regionname'] . "<br>";
                      echo "Stock Exchange: " . $instrumentinfo['stockexchange'] . "<br>";
+                     echo "Risk Rating: " . $instrumentinfo['riskrating'] . "<br>";
                      echo "<br>";
                   }
                } else {

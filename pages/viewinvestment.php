@@ -31,33 +31,39 @@
          <?php
          $clientid = GetClientID($username);
          $infos = GetInvestments($clientid);
-         ?>
-         <table id="preference">
-            <tr>
-               <th align="left" class="pinstr">Date Submitted</th>
-               <th align="left" class="pinstr">Investment ID</th>
-               <th align="left" class="pinstr">Instrument ID</th>
-               <th align="left" class="pinstr">Investment Details</th>
-               <th align="left" class="pinstr">Client</th>
-               <th align="left" class="pinstr"></th>
-            </tr>
-            <?php
-            foreach ($infos as $info) {
-               ?>
+         if (!empty($infos)) {
+            ?>
+            <table id="preference">
                <tr>
-                  <td class="pinstr"><?php echo $info['investmentdate']; ?></td>
-                  <td class="pinstr"><?php echo $info['investmentid']; ?></td>
-                  <td class="pinstr"><?php echo $info['instrumentid']; ?></td>
-                  <td class="pinstr"><?php echo $info['comments']; ?></td>
-                  <td class="pinstr"><?php echo $info['clientid']; ?></td>
-                  <td class="pinstr"><a href="index.php?page=deleteinvestment&investmentid=<?php echo $info['investmentid']; ?>"
-                     onclick="return confirm('Are you sure you want to delete this investment?')">Delete</a>
-                  </td>
+                  <th align="left" class="p9">Date Submitted</th>
+                  <th align="left" class="p9">Investment ID</th>
+                  <th align="left" class="p9">Instrument Name</th>
+                  <th align="left" class="p8">Investment Details</th>
+                  <th align="left" class="p9">Client</th>
+                  <th align="left" class="p9"></th>
                </tr>
                <?php
-            }
-            ?>
-         </table>
+               foreach ($infos as $info) {
+                  ?>
+                  <tr>
+                     <td class="p9"><?php echo $info['investmentdate']; ?></td>
+                     <td class="p9"><?php echo $info['investmentid']; ?></td>
+                     <td class="p9"><?php echo $info['instrumentname']; ?></td>
+                     <td class="p8"><?php echo $info['comments']; ?></td>
+                     <td class="p9"><?php echo $info['fullname']; ?></td>
+                     <td class="p9"><a href="index.php?page=deleteinvestment&investmentid=<?php 
+                        echo $info['investmentid']; ?>"
+                           onclick="return confirm('Are you sure you want to delete this investment?')">Delete</a>
+                     </td>
+                  </tr>
+                  <?php
+               }
+               ?>
+            </table>
+            <?php
+         } else
+            echo "<br>No investments made yet!";
+         ?>
       </div>
    </div>
 </body>

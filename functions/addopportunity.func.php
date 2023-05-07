@@ -5,9 +5,14 @@ function GetInstrument($instrumentid)
    $instrumentinfos = array();
    //could modify query to take the attributes needed, but this is easier
    //but if assettype, industry sector, country and region could state it here
-   $sql = "select *
-            from instruments
-            where instrumentid = :instrumentid";
+   $sql = "select instruments.*, assettypes.assetdesc, industrysectors.sectordesc,
+            countries.countryname, regions.regionname
+            from instruments, assettypes, industrysectors, countries, regions 
+            where instruments.instrumentid = :instrumentid
+            and assettypes.assetid = instruments.assetid
+            and industrysectors.parmcode = instruments.parmcode
+            and countries.countrycode = instruments.countrycode
+            and regions.regionid = countries.regionid";
 
    //prepare the query
    $query = $db->prepare($sql);

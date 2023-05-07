@@ -5,10 +5,15 @@ function GetOpportunity($oppid)
 
    $sql = "select opportunities.oppid, opportunities.oppname, instruments.instrumentid,   
                 instruments.shortname,instruments.issuer,instruments.currency, instruments.closingprice,
-                instruments.priceclosingdate 
-            from opportunities, instruments
+                instruments.priceclosingdate, assettypes.assetdesc, industrysectors.sectordesc,
+                countries.countryname, regions.regionname
+            from opportunities, instruments, assettypes, industrysectors, countries, regions
             where opportunities.oppid = :oppid
-            and opportunities.instrumentid = instruments.instrumentid";
+            and opportunities.instrumentid = instruments.instrumentid
+            and assettypes.assetid = instruments.assetid
+            and industrysectors.parmcode = instruments.parmcode
+            and countries.countrycode = instruments.countrycode
+            and regions.regionid = countries.regionid";
 
    $query = $db->prepare($sql);
    $query->execute(array(':oppid' => $oppid));

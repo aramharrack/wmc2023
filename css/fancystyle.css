@@ -190,6 +190,15 @@ td.p7 {
 	width: 23%;
 }
 
+th.p8,
+td.p8 {
+	width: 30%;
+}
+
+th.p9,
+td.p9 {
+	width: 14%;
+}
 
 textarea {
 	width: 255px;

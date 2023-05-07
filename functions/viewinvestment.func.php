@@ -26,9 +26,11 @@ function GetInvestments($clientid)
 
     $investinfos = array();
     
-    $sql = "select *
-            from investments
-            where clientid = :clientid";
+    $sql = "select investments.*, instruments.instrumentname, clients.fullname
+            from investments, instruments, clients
+            where investments.instrumentid = instruments.instrumentid
+            and clients.id = investments.clientid
+            and investments.clientid = :clientid";
     
     $query = $db->prepare($sql);
     $query->execute(array(':clientid' => $clientid));
