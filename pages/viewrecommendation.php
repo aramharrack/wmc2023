@@ -28,9 +28,8 @@
             <li><a href="index.php?page=viewrecommendation">View Recommendations</a></li>
          </ul>
          <h2>WMC Relationship Manager</h2>
-         <h3>Find Recommended Opportunities</h3>
+         <h3>Recommended Opportunities for Clients</h3>
          <form method="post">
-            <label for="client">Select a client:</label>
             <select id="client" name="client">
                <option value="">Select a Client...</option>
                <?php echo $clientlist = GetClientPreferences(); ?>
