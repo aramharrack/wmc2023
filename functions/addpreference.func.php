@@ -1,6 +1,13 @@
 <?php
-function InsertPreference($datesubmitted, $prefdetails, $clientid, $assetid, $parmcode, $countrycode, $regionid)
-{
+function InsertPreference(
+   $datesubmitted,
+   $prefdetails,
+   $clientid,
+   $assetid,
+   $parmcode,
+   $countrycode,
+   $regionid
+) {
    include "db_connect.php";
 
    $sql = "insert into preferences

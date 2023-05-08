@@ -43,14 +43,14 @@
             else
                $errors[] = "Select User Type!";
 
+            //check if username exists
+            if (CheckUsernameExists($username))
+               $errors[] = "Username already exists. Please choose a different username.";
+
             if (!empty($errors)) {
                foreach ($errors as $error)
                   echo $error . "<br>";
             } else {
-               //check if username exists
-               if (CheckUsernameExists($username))
-                  $errors[] = "Username already exists. Please choose a different username.";
-
                $passwordErrors = CheckPassword($password, $confirmPassword);
                if (!empty($passwordErrors))
                   foreach ($passwordErrors as $error)

@@ -49,12 +49,12 @@
                <table id="matches">
                   <thead>
                      <tr>
-                        <th>Client Name</th>
-                        <th>Pref ID</th>
-                        <th>Pref Details</th>
-                        <th>Opportunity Name</th>
-                        <th>Instrument Name</th>
-                        <th>Status</th>
+                        <th class="p9">Client Name</th>
+                        <th class="p9">Pref ID</th>
+                        <th class="p8">Pref Details</th>
+                        <th class="p9">Opportunity Name</th>
+                        <th class="p9">Instrument Name</th>
+                        <th class="p9">Status</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -62,12 +62,12 @@
                      foreach ($matches as $match) {
                         ?>
                         <tr>
-                           <td><?php echo $match['fullname']; ?></td>
-                           <td><?php echo $match['prefid']; ?></td>
-                           <td><?php echo $match['prefdetails']; ?></td>
-                           <td><?php echo $match['oppname']; ?></td>
-                           <td><?php echo $match['instrumentname']; ?></td>
-                           <td><?php echo $match['status']; ?></td>
+                           <td class="p9"><?php echo $match['fullname']; ?></td>
+                           <td class="p9"><?php echo $match['prefid']; ?></td>
+                           <td class="p8"><?php echo $match['prefdetails']; ?></td>
+                           <td class="p9"><?php echo $match['oppname']; ?></td>
+                           <td class="p9"><?php echo $match['instrumentname']; ?></td>
+                           <td class="p9"><?php echo $match['status']; ?></td>
                         </tr>
                         <?php
                      }

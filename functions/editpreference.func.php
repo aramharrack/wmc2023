@@ -1,6 +1,14 @@
 <?php
-function EditPreference($prefid, $datesubmitted, $prefdetails, $clientid, $assetid, $parmcode, $countrycode, $regionid)
-{
+function EditPreference(
+   $prefid,
+   $datesubmitted,
+   $prefdetails,
+   $clientid,
+   $assetid,
+   $parmcode,
+   $countrycode,
+   $regionid
+) {
    include "db_connect.php";
 
    $sql = "update preferences

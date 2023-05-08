@@ -193,11 +193,13 @@ td.p7 {
 th.p8,
 td.p8 {
 	width: 30%;
+	text-align: left;
 }
 
 th.p9,
 td.p9 {
 	width: 14%;
+	text-align: left;
 }
 
 textarea {
