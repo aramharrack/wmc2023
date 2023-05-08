@@ -42,7 +42,7 @@
                echo "<br>";
             }
             $prefinfos = GetPreferences($clientinfo['id'], $prefid);
-         
+
             if (isset($_POST['btnidea'])) {
                $lstopp = $_POST['lstopp'];
                if (!empty($lstopp)) {
@@ -58,32 +58,117 @@
             foreach ($prefinfos as $prefinfo) {
                echo "<br>";
                echo "<strong>Preference Details</strong><br>";
-               echo "ID: ".$prefinfo['prefid']."<br>";
-               echo "Date Submitted: ".$prefinfo['datesubmitted']."<br>";
-               echo "Asset Type: ".$prefinfo['assetdesc']."<br>";
-               echo "Industry Sector: ".$prefinfo['sectordesc']."<br>";
-               echo "Country: ".$prefinfo['countryname']."<br>";
-               echo "Region: ".$prefinfo['regionname']."<br>";
-               echo "Preference Details: ".$prefinfo['prefdetails']."<br>";
+               echo "ID: " . $prefinfo['prefid'] . "<br>";
+               echo "Date Submitted: " . $prefinfo['datesubmitted'] . "<br>";
+               echo "Asset Type: " . $prefinfo['assetdesc'] . "<br>";
+               echo "Industry Sector: " . $prefinfo['sectordesc'] . "<br>";
+               echo "Country: " . $prefinfo['countryname'] . "<br>";
+               echo "Region: " . $prefinfo['regionname'] . "<br>";
+               echo "Preference Details: " . $prefinfo['prefdetails'] . "<br>";
                echo "<br>";
             }
             ?>
             <form action="" method="post">
                <select name="lstopp" id="lstopp">
                   <option selected disabled>Match Preference</option>
-                     <?php
-                     $oppinfos = GetIdeas();
-                     foreach ($oppinfos as $oppinfo) {
+                  <?php
+                  $oppinfos = GetIdeas();
+                  foreach ($oppinfos as $oppinfo) {
                      ?>
-                        <option value="<?php echo $oppinfo['oppid']; ?>"><?php
-                           echo $oppinfo['oppname'] . " - " . $oppinfo['shortname']; ?></option>
+                     <option value="<?php echo $oppinfo['oppid']; ?>"><?php
+                        echo $oppinfo['oppname'] . " - " . $oppinfo['shortname']; ?></option>
                      <?php
-                     }
-                     ?>
+                  }
+                  ?>
                </select>
                <input type="submit" id="btnidea" name="btnidea" value="Assign Idea">
             </form>
-         <?php
+            <?php
+         } else if (!empty($_GET['oppid'])) {
+            $oppid = $_GET['oppid'];
+            $oppinfos = GetOpportunity($oppid);
+            foreach ($oppinfos as $oppinfo) {
+               echo "<br>";
+               echo "<strong>Opportunity Details</strong><br>";
+               echo "ID: " . $oppinfo['oppid'] . "<br>";
+               echo "Name: " . $oppinfo['instrumentname'] . "<br>";
+               echo "Admin: " . $oppinfo['fullname'] . "<br>";
+               echo "<br>";
+            }
+            //setup if server_request == post as it might be 2 forms
+         
+            ?>
+               <form action="" method="post">
+                  <select name="lstclient" id="lstclient">
+                     <option selected disabled>Clients</option>
+                     <?php
+                     $getclients = GetClientInfo();
+                     foreach ($getclients as $client) {
+                        ?>
+                        <option value="<?php echo $client['id']; ?>"><?php
+                           echo $client['fullname']; ?></option>
+                     <?php
+                     }
+                     ?>
+                  </select>
+                  <input type="submit" id="btnclient" name="btnclient" value="Select Client">
+               </form>
+               <?php
+               if (isset($_POST['btnclient'])) {
+                  $lstclient = $_POST['lstclient'];
+                  if (!empty($lstclient)) {
+                     //get prefid of client
+                     $prefinfos = GetPreferences($lstclient);
+                     ?>
+                     <h2>Client Preferences</h2>
+                     <table id="preference">
+                        <tr>
+                           <th align="left" class="p1">Date Submitted</th>
+                           <th align="left" class="p1">ID</th>
+                           <th align="left" class="p1">Asset Type</th>
+                           <th align="left" class="p1">Industry Sector</th>
+                           <th align="left" class="p1">Country</th>
+                           <th align="left" class="p1">Region</th>
+                           <th align="left" class="p2">Preference Details</th>
+                           <th align="left" class="p3"></th>
+                        </tr>
+                        <?php
+                        foreach ($prefinfos as $prefinfo) {
+                           ?>
+                           <tr>
+                              <td class="p1">
+                              <?php echo $prefinfo['prefid']; ?>
+                              </td>
+                              <td class="p1">
+                              <?php echo $prefinfo['datesubmitted']; ?>
+                              </td>
+                              <td class="p1">
+                              <?php echo $prefinfo['assetdesc']; ?>
+                              </td>
+                              <td class="p1">
+                              <?php echo $prefinfo['sectordesc']; ?>
+                              </td>
+                              <td class="p1">
+                              <?php echo $prefinfo['countryname']; ?>
+                              </td>
+                              <td class="p1">
+                              <?php echo $prefinfo['regionname']; ?>
+                              </td>
+                              <td class="p2">
+                              <?php echo $prefinfo['prefdetails']; ?>
+                              </td>
+                              <td class="p3"><a href="index.php?page=opportunity&prefid=<?php echo
+                                 $prefinfo['prefid']; ?>&clientname=<?php echo
+                                  $client['fullname']; ?>">Find Opportunity</a></td>
+                           </tr>
+                        <?php
+                        }
+                        ?>
+                     </table>
+                  <?php
+                  } else
+                     echo "<br>Select a client!";
+               }
          }
          ?>
       </div>

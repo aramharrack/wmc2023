@@ -40,7 +40,7 @@
          <br>
          <button type="button" onclick="window.location.href='index.php?page=<?php
          echo $page ?>'">Return to Main</button>
-
+         <br>
          <?php
          // Handle form submission
          if ($_SERVER['REQUEST_METHOD'] == 'POST') {

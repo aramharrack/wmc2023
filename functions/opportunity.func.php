@@ -1,25 +1,36 @@
 <?php
-function GetClientInfo($clientname)
+function GetClientInfo($clientname = null)
 {
    include "db_connect.php";
 
    $clientinfos = array();
 
    $sql = "select *
-            from clients
-            where fullname = :clientname";
+            from clients";
+
+   if ($clientname !== null) {
+      $sql .= " where fullname = :clientname";
+   }
 
    $query = $db->prepare($sql);
-   $query->execute(array(':clientname' => $clientname));
 
-   if (!$query)
-      echo "Something went wrong. " . print_r($db->errorInfo());
-   else {
-      $row = $query->fetch(PDO::FETCH_ASSOC);
-      $clientinfos[] = $row;
+   if ($clientname !== null) {
+      $query->execute(array(':clientname' => $clientname));
+   } else {
+      $query->execute();
    }
+
+   if (!$query) {
+      echo "Something went wrong. " . print_r($db->errorInfo());
+   } else {
+      while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
+         $clientinfos[] = $row;
+      }
+   }
+
    return $clientinfos;
 }
+
 
 function GetPreferences($clientid, $prefid = null)
 {
@@ -27,7 +38,7 @@ function GetPreferences($clientid, $prefid = null)
    
    $sql = "select preferences.prefid, preferences.datesubmitted, preferences.prefdetails, 
             assettypes.assetdesc, industrysectors.sectordesc,
-            countries.countryname, regions.regionname
+            countries.countryname, regions.regionname, clients.fullname
          from preferences, clients, assettypes, industrysectors, countries, regions 
          where preferences.clientid = :clientid
          and assettypes.assetid = preferences.assetid
@@ -95,5 +106,29 @@ function AssignOpportunity($prefid, $oppid)
          return $query;
    } else
       echo "Something went wrong." . print_r($db->errorInfo());
+}
+
+function GetOpportunity($oppid)
+{
+   include "db_connect.php";
+
+   $oppinfos = array();
+
+   $sql = "select opportunities.*, instruments.instrumentname, admins.fullname
+            from opportunities, instruments, admins
+            where opportunities.oppid = :oppid
+            and opportunities.instrumentid = instruments.instrumentid
+            and opportunities.staffid = admins.id";
+
+   $query = $db->prepare($sql);
+   $query->execute(array(':oppid' => $oppid));
+
+   if (!$query)
+      echo "Something went wrong. " . print_r($db->errorInfo());
+   else {
+      while ($row = $query->fetch(PDO::FETCH_ASSOC))
+         $oppinfos[] = $row;
+   }
+   return $oppinfos;
 }
 ?>
