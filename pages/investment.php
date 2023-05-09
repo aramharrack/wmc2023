@@ -74,7 +74,7 @@
                   header('location:index.php?page=clientmain');
                } else {
                   // Investment already exists
-                  echo "Investment already exists";
+                  echo "Investment already made!";
                }
             }
          }
