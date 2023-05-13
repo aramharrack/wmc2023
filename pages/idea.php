@@ -44,7 +44,8 @@
          <a href="#" onclick="window.history.back()">Return to Main</a>
          <br>
          <?php
-         $opportunities = GetOpportunities($prefid);
+         $clientid = GetClientID($username);
+         $opportunities = GetOpportunities($prefid, $clientid);
          if (!empty($opportunities)) {
             ?>
             <h2>Recommended Opportunities</h2>
@@ -64,35 +65,22 @@
                foreach ($opportunities as $opportunity) {
                   ?>
                   <tr>
-                     <td class="p1">
-                        <?php echo $opportunity['oppid']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['oppname']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['shortname']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['issuer']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['currency']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['closingprice']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['priceclosingdate']; ?>
-                     </td>
-                     <td class="p1">
-                        <?php echo $opportunity['status']; ?>
-                     </td>
+                     <td class="p1"><?php echo $opportunity['oppid']; ?></td>
+                     <td class="p1"><?php echo $opportunity['oppname']; ?></td>
+                     <td class="p1"><?php echo $opportunity['shortname']; ?></td>
+                     <td class="p1"><?php echo $opportunity['issuer']; ?></td>
+                     <td class="p1"><?php echo $opportunity['currency']; ?></td>
+                     <td class="p1"><?php echo $opportunity['closingprice']; ?></td>
+                     <td class="p1"><?php echo $opportunity['priceclosingdate']; ?></td>
+                     <td class="p1"><?php echo $opportunity['status']; ?></td>
                      <td class="p1">
                         <?php
-                        if ($opportunity['status'] == 'Invested')
-                           echo '<a href="index.php?page=cancelinvestment&oppid=' . $opportunity['oppid'] . '">Cancel</a>';
-                        else
+                        if ($opportunity['status'] == 'Invested') {
+                           $investmentid = $opportunity['investmentid'];
+                           if (!empty($investmentid))
+                              echo '<a href="index.php?page=cancelinvestment&oppid=' . $opportunity['oppid'] . '&investmentid=' . $investmentid. '&prefid=' . $prefid . '"
+                                 onclick="return confirm(\'Are you sure you want to delete this investment?\')">Cancel</a>';
+                        } else 
                            echo '<a href="index.php?page=investment&prefid=' . $prefid . '&oppid=' . $opportunity['oppid'] . '">Invest</a>';
                         ?>
                      </td>
